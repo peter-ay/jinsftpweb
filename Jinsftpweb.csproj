@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DbHelperSQLLib">
+      <HintPath>Lib\DbHelperSQLLib.dll</HintPath>
+    </Reference>
     <Reference Include="FTPLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\FTPLib.dll</HintPath>
