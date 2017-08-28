@@ -11,11 +11,12 @@ namespace Jinsftpweb
     {
         void Application_Start(object sender, EventArgs e)
         {
+            this.RunTheTask();
             //定时器
-            System.Timers.Timer myTimer = new System.Timers.Timer(2000);
-            myTimer.Elapsed += new ElapsedEventHandler(myTimer_Elapsed);
-            myTimer.Enabled = true;
-            myTimer.AutoReset = true;
+            //System.Timers.Timer myTimer = new System.Timers.Timer(2000);
+            //myTimer.Elapsed += new ElapsedEventHandler(myTimer_Elapsed);
+            //myTimer.Enabled = true;
+            //myTimer.AutoReset = true;
         }
         private void myTimer_Elapsed(object source, ElapsedEventArgs e)
         {
@@ -32,7 +33,8 @@ namespace Jinsftpweb
         private void RunTheTask()
         {
             //在这里写你需要执行的任务
-            //Default.html = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + ":AutoTask is Working!";
+            Jins jins = new Jins();
+            jins.GetXMLFiles();
         }
 
         void Application_End(object sender, EventArgs e)
