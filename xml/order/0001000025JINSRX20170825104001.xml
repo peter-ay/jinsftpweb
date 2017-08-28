@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order>
+   <purchase_order_header_id>1000025</purchase_order_header_id>
+   <po_type_id>rx</po_type_id>
+   <address>广东省 广州市 天河区天河路220号 天环广场 地下一层B138a号</address>
+   <postal>510620</postal>
+   <telephone>020-37889279</telephone>
+   <memorandum></memorandum>
+   <created>2017-08-25 10:29:04</created>
+   <salesOfficeCode>81079</salesOfficeCode>
+   <salesOfficeName>JINS广州天环广场店</salesOfficeName>
+   <detail id="10">
+      <specialright1>P 3.00OT</specialright1>
+      <specialright2>D 2.00OT</specialright2>
+      <specialright3>CT 2</specialright3>
+      <specialright4>ET 2</specialright4>
+      <specialleft1>P 3.00OT</specialleft1>
+      <specialleft2>D 3.00IN</specialleft2>
+      <specialleft3>CT 2</specialleft3>
+      <specialleft4>ET 2</specialleft4>
+      <lens_type>1.50偏光</lens_type>
+      <tint_type>无</tint_type>
+      <tint></tint>
+      <polarized>偏光 绿</polarized>
+      <mirrored></mirrored>
+      <oculus_dexter_sphere>-19.75</oculus_dexter_sphere>
+      <oculus_sinister_sphere>-19.5</oculus_sinister_sphere>
+      <oculus_dexter_cylinder>-5.5</oculus_dexter_cylinder>
+      <oculus_sinister_cylinder>-5.25</oculus_sinister_cylinder>
+      <oculus_dexter_axis>3.0</oculus_dexter_axis>
+      <oculus_sinister_axis>2.0</oculus_sinister_axis>
+      <oculus_dexter_add>1.75</oculus_dexter_add>
+      <oculus_sinister_add>1.5</oculus_sinister_add>
+      <oculus_dexter_diameter>60.0</oculus_dexter_diameter>
+      <oculus_sinister_diameter>65.0</oculus_sinister_diameter>
+      <oculus_dexter_quantity>1</oculus_dexter_quantity>
+      <oculus_sinister_quantity>1</oculus_sinister_quantity>
+   </detail>
+</order>
