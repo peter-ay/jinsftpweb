@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order>
+    <purchase_order_header_id>1000025</purchase_order_header_id>
+    <detail id="10">
+        <confirmed_qty>1</confirmed_qty>
+    </detail>
+</order>

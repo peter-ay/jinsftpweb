@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order>
+    <purchase_order_header_id>1000015</purchase_order_header_id>
+    <detail id="10">
+        <opc>7197431658</opc>
+        <confirmed_qty>3</confirmed_qty>
+    </detail>
+    <detail id="20">
+        <opc>7197431252</opc>
+        <confirmed_qty>2</confirmed_qty>
+    </detail>
+    <detail id="30">
+        <opc>7197430882</opc>
+        <confirmed_qty>2</confirmed_qty>
+    </detail>
+    <detail id="40">
+        <opc>7197432680</opc>
+        <confirmed_qty>1</confirmed_qty>
+    </detail>
+</order>

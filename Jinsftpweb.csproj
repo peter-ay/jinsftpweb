@@ -75,13 +75,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
-    <Content Include="Default.html" />
     <Content Include="Global.asax" />
     <Content Include="Lib\FTPLib.dll" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ClassDiagram_Jins.cd" />
+    <Content Include="ClassDiagram_DBhelper.cd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -90,6 +90,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBHelper.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
