@@ -43,8 +43,11 @@ namespace Jinsftpweb
                 fileName = fileList[0];
                 ftp.DownloadFile(this.ftpServerIP, this.ftpServerFolder_order, this.ftpUserID, this.ftpPassword, fileName, localFolder_order, fileName);
                 File.Copy(Path.Combine(localFolder_order, fileName), Path.Combine(localFolder_order + @"\backup", fileName), true);
-                var model = Jinsxml.ConvertXMLtoOrdModel(localFolder_order + @"\" + fileName);
+                var fullPath = localFolder_order + @"\" + fileName;
+                var model = Jinsxml.ConvertXMLtoOrdModel(fullPath);
                 Jinsdb.AddOrd(model);
+                FileInfo fi = new FileInfo(fullPath);
+                fi.Delete();
                 ftp.DeleteFile(this.ftpServerIP, this.ftpServerFolder_order, fileName, this.ftpUserID, this.ftpPassword);
                 countGetFiles++;
             }
