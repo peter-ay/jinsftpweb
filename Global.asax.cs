@@ -24,6 +24,13 @@ namespace Jinsftpweb
             var t3 = this.CreateTimer(30000);
             t3.Elapsed += t3_Elapsed;
         }
+        private System.Timers.Timer CreateTimer(double intervel)
+        {
+            System.Timers.Timer myTimer1 = new System.Timers.Timer(intervel);
+            myTimer1.Enabled = true;
+            myTimer1.AutoReset = true;
+            return myTimer1;
+        }
 
         void t3_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -34,16 +41,7 @@ namespace Jinsftpweb
             catch (Exception ex)
             {
                 Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + "[Shipping]" + ex.Message + "<br />";
-                DbHelperSQL dbHelper = new DbHelperSQL("HKOERPCONNECTION");
-                StringBuilder strSql = new StringBuilder();
-                strSql.Append("insert into Jins_Log(");
-                strSql.Append("ID,LogDate,Msg)");
-                strSql.Append(" values (");
-                strSql.Append("(select ERP_Management.dbo.SF_GetID(25)),getdate(),@Msg)");
-                SqlParameter[] parameters = {
-					new SqlParameter("@Msg", SqlDbType.VarChar,2000)};
-                parameters[0].Value = ex.Message;
-                dbHelper.ExecuteSql(strSql.ToString(), parameters);
+                Jinsdb.AddLog(ex.Message);
             }
         }
 
@@ -56,15 +54,8 @@ namespace Jinsftpweb
             catch (Exception ex)
             {
                 Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + "[Confirm]" + ex.Message + "<br />";
+                Jinsdb.AddLog(ex.Message);
             }
-        }
-
-        private System.Timers.Timer CreateTimer(double intervel)
-        {
-            System.Timers.Timer myTimer1 = new System.Timers.Timer(intervel);
-            myTimer1.Enabled = true;
-            myTimer1.AutoReset = true;
-            return myTimer1;
         }
 
         private void t1_Elapsed(object source, ElapsedEventArgs e)
@@ -76,6 +67,7 @@ namespace Jinsftpweb
             catch (Exception ex)
             {
                 Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + ex.Message + "<br />";
+                Jinsdb.AddLog(ex.Message);
             }
         }
 
@@ -116,7 +108,6 @@ namespace Jinsftpweb
         void Application_Error(object sender, EventArgs e)
         {
             // Code that runs when an unhandled error occurs
-
         }
     }
 }

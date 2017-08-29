@@ -80,8 +80,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ClassDiagram_Jins.cd" />
-    <Content Include="ClassDiagram_DBhelper.cd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -90,7 +88,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBHelper.cs" />
+    <Compile Include="Jinsdb.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -102,6 +100,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Jins.cs" />
+    <Compile Include="Model\OrdMain.cs" />
+    <Compile Include="Model\OrdRX.cs" />
+    <Compile Include="Model\OrdST.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
