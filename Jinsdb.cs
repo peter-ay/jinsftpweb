@@ -45,7 +45,7 @@ namespace Jinsftpweb
             }
             obj = PrePareOrdSaveVerify(model.Order_Type);
             cmdObjec.Add(obj);
-            dbHelper.ExecuteCmdTran(cmdObjec);
+            dbHelper.ExecuteCmdObjectTran(cmdObjec);
         }
 
         private static DbHelperCmdObject PrePareOrdSaveVerify(string id)
