@@ -100,6 +100,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Jins.cs" />
+    <Compile Include="JinsPub.cs" />
+    <Compile Include="Jinsxml.cs" />
     <Compile Include="Model\OrdMain.cs" />
     <Compile Include="Model\OrdRX.cs" />
     <Compile Include="Model\OrdST.cs" />

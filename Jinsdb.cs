@@ -9,10 +9,9 @@ namespace Jinsftpweb
 {
     public class Jinsdb
     {
-        private static string dbName = "HKOERPCONNECTION";
         public static void AddLog(string msg)
         {
-            DbHelperSQL dbHelper = new DbHelperSQL(dbName);
+            DbHelperSQL dbHelper = new DbHelperSQL(JinsPub.dbName);
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into Jins_Log(");
             strSql.Append("ID,LogDate,Msg)");
@@ -26,7 +25,7 @@ namespace Jinsftpweb
 
         public static void AddOrd(OrdMain model)
         {
-            DbHelperSQL dbHelper = new DbHelperSQL(dbName);
+            DbHelperSQL dbHelper = new DbHelperSQL(JinsPub.dbName);
             List<DbHelperCmdObject> cmdObjec = new List<DbHelperCmdObject>();
             DbHelperCmdObject obj = PrePareOrdMain(model);
             cmdObjec.Add(obj);
