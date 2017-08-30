@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <script>
-        setTimeout("self.location.reload();", 10000);
+        setTimeout("self.location.reload();", 60000);
     </script>
     <title></title>
 </head>

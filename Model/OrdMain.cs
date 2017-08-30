@@ -8,7 +8,57 @@ namespace Jinsftpweb.Model
     public class OrdMain
     {
 
-        public string Order_Type
+        public string ID
+        {
+            get;
+            set;
+        }
+        public string OrdID
+        {
+            get;
+            set;
+        }
+        public string OrdHdID
+        {
+            get;
+            set;
+        }
+        public string OrdType
+        {
+            get;
+            set;
+        }
+        public string Address1
+        {
+            get;
+            set;
+        }
+        public string Postal
+        {
+            get;
+            set;
+        }
+        public string Tel
+        {
+            get;
+            set;
+        }
+        public string Memo
+        {
+            get;
+            set;
+        }
+        public DateTime Created
+        {
+            get;
+            set;
+        }
+        public string SalesOfficeCode
+        {
+            get;
+            set;
+        }
+        public string SalesOfficeName
         {
             get;
             set;

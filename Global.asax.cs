@@ -15,7 +15,8 @@ namespace Jinsftpweb
     {
         void Application_Start(object sender, EventArgs e)
         {
-            //this.RunTheTask();
+            this.t1_Elapsed(null, null);
+            return;
             //定时器
             var t1 = this.CreateTimer(10000);
             t1.Elapsed += t1_Elapsed;
