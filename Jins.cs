@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace Jinsftpweb
 {
@@ -22,12 +25,16 @@ namespace Jinsftpweb
 
         public Jins()
         {
-            this.ftpServerIP = "106.15.90.89:9022";
+            using (XmlReader _XReader = XmlReader.Create(HttpRuntime.AppDomainAppPath + @"ftp.xml"))
+            {
+                XElement _XElement = XElement.Load(_XReader);
+                this.ftpServerIP = _XElement.Element("ftpServerIP").Attribute("value").Value;
+                this.ftpUserID = _XElement.Element("ftpUserID").Attribute("value").Value;
+                this.ftpPassword = _XElement.Element("ftpPassword").Attribute("value").Value;
+            }
             this.ftpServerFolder_order = "order";
             this.ftpServerFolder_confirmation = "confirmation";
             this.ftpServerFolder_shipping = "shipping";
-            this.ftpUserID = "hko";
-            this.ftpPassword = "1QY388ZB";
         }
 
         public int GetXMLFiles()

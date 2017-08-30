@@ -76,10 +76,12 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Lib\DbHelperSQLLib.dll" />
     <Content Include="Lib\FTPLib.dll" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ftp.xml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -105,6 +107,8 @@
     <Compile Include="Jinsxml.cs" />
     <Compile Include="Model\OrdMain.cs" />
     <Compile Include="Model\OrdRX.cs" />
+    <Compile Include="Model\OrdZMain.cs" />
+    <Compile Include="Model\OrdZ.cs" />
     <Compile Include="Model\OrdST.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
