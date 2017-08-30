@@ -49,8 +49,8 @@ namespace Jinsftpweb
                     cmdObjec.Add(obj);
                 }
             }
-            //obj = PrePareOrdSaveVerify(model.ID);
-            //cmdObjec.Add(obj);
+            obj = PrePareOrdSaveVerify(model.ID);
+            cmdObjec.Add(obj);
             dbHelper.ExecuteCmdObjectTran(cmdObjec);
         }
 
