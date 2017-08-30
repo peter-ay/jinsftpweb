@@ -7,9 +7,9 @@ namespace Jinsftpweb
 {
     public class DBHelper
     {
-        public void Log()
+        public void LogMsg(string msg)
         {
-            throw new System.NotImplementedException();
+             
         }
     }
 }
