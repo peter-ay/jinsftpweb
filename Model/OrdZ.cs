@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Jinsftpweb.Model
 {
-    public class MJins_Ord_Z
+    public class OrdZ
     {
 
         public string ID

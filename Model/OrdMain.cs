@@ -76,5 +76,17 @@ namespace Jinsftpweb.Model
             set;
         }
 
+        public OrdZ SubZ
+        {
+            get;
+            set;
+        }
+
+        public OrdZMain SubZMain
+        {
+            get;
+            set;
+        }
+
     }
 }

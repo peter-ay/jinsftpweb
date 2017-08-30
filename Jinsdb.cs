@@ -13,6 +13,8 @@ namespace Jinsftpweb
         {
             DbHelperSQL dbHelper = new DbHelperSQL(JinsPub.DbName);
             StringBuilder strSql = new StringBuilder();
+            strSql.Append("delete Jins_Log");
+            strSql.Append(" where DATEADD(mm,-3,LogDate)<getdate() ;");
             strSql.Append("insert into Jins_Log(");
             strSql.Append("ID,LogDate,OrdID,Msg)");
             strSql.Append(" values (");
@@ -49,9 +51,194 @@ namespace Jinsftpweb
                     cmdObjec.Add(obj);
                 }
             }
+            model.SubZ.ID = model.ID;
+            obj = PrePareOrdZ(model.SubZ);
+            cmdObjec.Add(obj);
+            model.SubZMain.ID = model.ID;
+            obj = PrePareOrdZMain(model.SubZMain);
+            cmdObjec.Add(obj);
+            //
             obj = PrePareOrdSaveVerify(model.ID);
             cmdObjec.Add(obj);
             dbHelper.ExecuteCmdObjectTran(cmdObjec);
+        }
+
+        private static DbHelperCmdObject PrePareOrdZMain(OrdZMain model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into Jins_Ord_Z_Main(");
+            strSql.Append("ID,BillCode,CusCode,Remark,Notes,PD,OBillCode,Flag_CX,AxisR,Center_ThicknessR,CYLR,DaoBianR,Decenter1R,Decenter2R,Decenter3R,Decenter4R,DiameterR,MianWanR,MnumberR,Prism1R,Prism2R,Prism3R,Prism4R,QuantityR,SPHR,X_ADDR,AxisL,Center_ThicknessL,CYLL,DaoBianL,Decenter1L,Decenter2L,Decenter3L,Decenter4L,DiameterL,MianWanL,MnumberL,Prism1L,Prism2L,Prism3L,Prism4L,QuantityL,SPHL,X_ADDL,CaiBian,ChaSe,CheBian,ExtraProcess,Hardened,JingJia,JuSe,KaiKeng,OtherProcess,PaoGuang,PiHua,RanSe,RanSeName,ShuiYin,UV,ZuanKong,LR_Flag,Mnumber)");
+            strSql.Append(" values (");
+            strSql.Append("@ID,@BillCode,@CusCode,@Remark,@Notes,@PD,@OBillCode,@Flag_CX,@AxisR,@Center_ThicknessR,@CYLR,@DaoBianR,@Decenter1R,@Decenter2R,@Decenter3R,@Decenter4R,@DiameterR,@MianWanR,@MnumberR,@Prism1R,@Prism2R,@Prism3R,@Prism4R,@QuantityR,@SPHR,@X_ADDR,@AxisL,@Center_ThicknessL,@CYLL,@DaoBianL,@Decenter1L,@Decenter2L,@Decenter3L,@Decenter4L,@DiameterL,@MianWanL,@MnumberL,@Prism1L,@Prism2L,@Prism3L,@Prism4L,@QuantityL,@SPHL,@X_ADDL,@CaiBian,@ChaSe,@CheBian,@ExtraProcess,@Hardened,@JingJia,@JuSe,@KaiKeng,@OtherProcess,@PaoGuang,@PiHua,@RanSe,@RanSeName,@ShuiYin,@UV,@ZuanKong,@LR_Flag,@Mnumber)");
+            SqlParameter[] parameters = {
+					new SqlParameter("@ID", SqlDbType.VarChar,25),
+					new SqlParameter("@BillCode", SqlDbType.NVarChar,30),
+					new SqlParameter("@CusCode", SqlDbType.VarChar,22),
+					new SqlParameter("@Remark", SqlDbType.NVarChar,200),
+					new SqlParameter("@Notes", SqlDbType.NVarChar,200),
+					new SqlParameter("@PD", SqlDbType.NVarChar,10),
+					new SqlParameter("@OBillCode", SqlDbType.NVarChar,30),
+					new SqlParameter("@Flag_CX", SqlDbType.Bit,1),
+					new SqlParameter("@AxisR", SqlDbType.NVarChar,5),
+					new SqlParameter("@Center_ThicknessR", SqlDbType.NVarChar,5),
+					new SqlParameter("@CYLR", SqlDbType.Int,4),
+					new SqlParameter("@DaoBianR", SqlDbType.Bit,1),
+					new SqlParameter("@Decenter1R", SqlDbType.NVarChar,10),
+					new SqlParameter("@Decenter2R", SqlDbType.NVarChar,10),
+					new SqlParameter("@Decenter3R", SqlDbType.NVarChar,10),
+					new SqlParameter("@Decenter4R", SqlDbType.NVarChar,10),
+					new SqlParameter("@DiameterR", SqlDbType.Int,4),
+					new SqlParameter("@MianWanR", SqlDbType.NVarChar,10),
+					new SqlParameter("@MnumberR", SqlDbType.NVarChar,30),
+					new SqlParameter("@Prism1R", SqlDbType.NVarChar,10),
+					new SqlParameter("@Prism2R", SqlDbType.NVarChar,10),
+					new SqlParameter("@Prism3R", SqlDbType.NVarChar,10),
+					new SqlParameter("@Prism4R", SqlDbType.NVarChar,10),
+					new SqlParameter("@QuantityR", SqlDbType.Int,4),
+					new SqlParameter("@SPHR", SqlDbType.Int,4),
+					new SqlParameter("@X_ADDR", SqlDbType.Int,4),
+					new SqlParameter("@AxisL", SqlDbType.NVarChar,5),
+					new SqlParameter("@Center_ThicknessL", SqlDbType.NVarChar,5),
+					new SqlParameter("@CYLL", SqlDbType.Int,4),
+					new SqlParameter("@DaoBianL", SqlDbType.Bit,1),
+					new SqlParameter("@Decenter1L", SqlDbType.NVarChar,10),
+					new SqlParameter("@Decenter2L", SqlDbType.NVarChar,10),
+					new SqlParameter("@Decenter3L", SqlDbType.NVarChar,10),
+					new SqlParameter("@Decenter4L", SqlDbType.NVarChar,10),
+					new SqlParameter("@DiameterL", SqlDbType.Int,4),
+					new SqlParameter("@MianWanL", SqlDbType.NVarChar,10),
+					new SqlParameter("@MnumberL", SqlDbType.NVarChar,30),
+					new SqlParameter("@Prism1L", SqlDbType.NVarChar,10),
+					new SqlParameter("@Prism2L", SqlDbType.NVarChar,10),
+					new SqlParameter("@Prism3L", SqlDbType.NVarChar,10),
+					new SqlParameter("@Prism4L", SqlDbType.NVarChar,10),
+					new SqlParameter("@QuantityL", SqlDbType.Int,4),
+					new SqlParameter("@SPHL", SqlDbType.Int,4),
+					new SqlParameter("@X_ADDL", SqlDbType.Int,4),
+					new SqlParameter("@CaiBian", SqlDbType.NVarChar,20),
+					new SqlParameter("@ChaSe", SqlDbType.NVarChar,20),
+					new SqlParameter("@CheBian", SqlDbType.NVarChar,20),
+					new SqlParameter("@ExtraProcess", SqlDbType.NVarChar,20),
+					new SqlParameter("@Hardened", SqlDbType.Bit,1),
+					new SqlParameter("@JingJia", SqlDbType.NVarChar,20),
+					new SqlParameter("@JuSe", SqlDbType.NVarChar,20),
+					new SqlParameter("@KaiKeng", SqlDbType.NVarChar,20),
+					new SqlParameter("@OtherProcess", SqlDbType.NVarChar,20),
+					new SqlParameter("@PaoGuang", SqlDbType.NVarChar,20),
+					new SqlParameter("@PiHua", SqlDbType.NVarChar,20),
+					new SqlParameter("@RanSe", SqlDbType.NVarChar,20),
+					new SqlParameter("@RanSeName", SqlDbType.NVarChar,20),
+					new SqlParameter("@ShuiYin", SqlDbType.NVarChar,20),
+					new SqlParameter("@UV", SqlDbType.Bit,1),
+					new SqlParameter("@ZuanKong", SqlDbType.NVarChar,20),
+					new SqlParameter("@LR_Flag", SqlDbType.NVarChar,1),
+					new SqlParameter("@Mnumber", SqlDbType.NVarChar,30)};
+            parameters[0].Value = model.ID;
+            parameters[1].Value = model.BillCode;
+            parameters[2].Value = model.CusCode;
+            parameters[3].Value = model.Remark;
+            parameters[4].Value = model.Notes;
+            parameters[5].Value = model.PD;
+            parameters[6].Value = model.OBillCode;
+            parameters[7].Value = model.Flag_CX;
+            parameters[8].Value = model.AxisR;
+            parameters[9].Value = model.Center_ThicknessR;
+            parameters[10].Value = model.CYLR;
+            parameters[11].Value = model.DaoBianR;
+            parameters[12].Value = model.Decenter1R;
+            parameters[13].Value = model.Decenter2R;
+            parameters[14].Value = model.Decenter3R;
+            parameters[15].Value = model.Decenter4R;
+            parameters[16].Value = model.DiameterR;
+            parameters[17].Value = model.MianWanR;
+            parameters[18].Value = model.MnumberR;
+            parameters[19].Value = model.Prism1R;
+            parameters[20].Value = model.Prism2R;
+            parameters[21].Value = model.Prism3R;
+            parameters[22].Value = model.Prism4R;
+            parameters[23].Value = model.QuantityR;
+            parameters[24].Value = model.SPHR;
+            parameters[25].Value = model.X_ADDR;
+            parameters[26].Value = model.AxisL;
+            parameters[27].Value = model.Center_ThicknessL;
+            parameters[28].Value = model.CYLL;
+            parameters[29].Value = model.DaoBianL;
+            parameters[30].Value = model.Decenter1L;
+            parameters[31].Value = model.Decenter2L;
+            parameters[32].Value = model.Decenter3L;
+            parameters[33].Value = model.Decenter4L;
+            parameters[34].Value = model.DiameterL;
+            parameters[35].Value = model.MianWanL;
+            parameters[36].Value = model.MnumberL;
+            parameters[37].Value = model.Prism1L;
+            parameters[38].Value = model.Prism2L;
+            parameters[39].Value = model.Prism3L;
+            parameters[40].Value = model.Prism4L;
+            parameters[41].Value = model.QuantityL;
+            parameters[42].Value = model.SPHL;
+            parameters[43].Value = model.X_ADDL;
+            parameters[44].Value = model.CaiBian;
+            parameters[45].Value = model.ChaSe;
+            parameters[46].Value = model.CheBian;
+            parameters[47].Value = model.ExtraProcess;
+            parameters[48].Value = model.Hardened;
+            parameters[49].Value = model.JingJia;
+            parameters[50].Value = model.JuSe;
+            parameters[51].Value = model.KaiKeng;
+            parameters[52].Value = model.OtherProcess;
+            parameters[53].Value = model.PaoGuang;
+            parameters[54].Value = model.PiHua;
+            parameters[55].Value = model.RanSe;
+            parameters[56].Value = model.RanSeName;
+            parameters[57].Value = model.ShuiYin;
+            parameters[58].Value = model.UV;
+            parameters[59].Value = model.ZuanKong;
+            parameters[60].Value = model.LR_Flag;
+            parameters[61].Value = model.Mnumber;
+            //
+            DbHelperCmdObject obj = new DbHelperCmdObject(strSql.ToString(), parameters);
+            return obj;
+        }
+
+        private static DbHelperCmdObject PrePareOrdZ(OrdZ model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into Jins_Ord_Z(");
+            strSql.Append("ID,BillCode,BillDate,ConsignDate,CusCode,Remark,Notes,BillType,OBillCode,MR,QtyR,ML,QtyL,SumQty)");
+            strSql.Append(" values (");
+            strSql.Append("@ID,@BillCode,@BillDate,@ConsignDate,@CusCode,@Remark,@Notes,@BillType,@OBillCode,@MR,@QtyR,@ML,@QtyL,@SumQty)");
+            SqlParameter[] parameters = {
+					new SqlParameter("@ID", SqlDbType.VarChar,25),
+					new SqlParameter("@BillCode", SqlDbType.NVarChar,30),
+					new SqlParameter("@BillDate", SqlDbType.Date,3),
+					new SqlParameter("@ConsignDate", SqlDbType.Date,3),
+					new SqlParameter("@CusCode", SqlDbType.NVarChar,10),
+					new SqlParameter("@Remark", SqlDbType.NVarChar,200),
+					new SqlParameter("@Notes", SqlDbType.NVarChar,200),
+					new SqlParameter("@BillType", SqlDbType.NVarChar,10),
+					new SqlParameter("@OBillCode", SqlDbType.NVarChar,30),
+					new SqlParameter("@MR", SqlDbType.NVarChar,30),
+					new SqlParameter("@QtyR", SqlDbType.Int,4),
+					new SqlParameter("@ML", SqlDbType.NVarChar,30),
+					new SqlParameter("@QtyL", SqlDbType.Int,4),
+					new SqlParameter("@SumQty", SqlDbType.Int,4)};
+            parameters[0].Value = model.ID;
+            parameters[1].Value = model.BillCode;
+            parameters[2].Value = model.BillDate;
+            parameters[3].Value = model.ConsignDate;
+            parameters[4].Value = model.CusCode;
+            parameters[5].Value = model.Remark;
+            parameters[6].Value = model.Notes;
+            parameters[7].Value = model.BillType;
+            parameters[8].Value = model.OBillCode;
+            parameters[9].Value = model.MR;
+            parameters[10].Value = model.QtyR;
+            parameters[11].Value = model.ML;
+            parameters[12].Value = model.QtyL;
+            parameters[13].Value = model.SumQty;
+            //
+            DbHelperCmdObject obj = new DbHelperCmdObject(strSql.ToString(), parameters);
+            return obj;
         }
 
         private static DbHelperCmdObject PrePareOrdSaveVerify(string id)
