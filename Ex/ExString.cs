@@ -53,5 +53,29 @@ namespace System
         {
             return Convert.ToDecimal(str.ToString().Trim() == "" ? "0" : str);
         }
+
+        public static string GetPrismDecenterStr(this string str)
+        {
+            var rs = "";
+            switch (str)
+            {
+                case "IN":
+                    rs = "IN";
+                    break;
+                case "OT":
+                    rs = "OUT";
+                    break;
+                case "UP":
+                    rs = "UP";
+                    break;
+                case "DN":
+                    rs = "DOWN";
+                    break;
+                default:
+                    rs = "";
+                    break;
+            }
+            return rs;
+        }
     }
 }

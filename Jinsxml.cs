@@ -186,18 +186,59 @@ namespace Jinsftpweb
             var modelZMain = model.SubZMain;
             if (model.OrdType.ToLower() == "rx")
             {
-                modelZMain.AxisR = model.SubRX.Oculus_Dexter_Axis.ToString();
-                modelZMain.AxisL = model.SubRX.Oculus_Sinister_Axis.ToString();
-                modelZMain.Center_ThicknessL = model.SubRX.SpecialLeft3;
-                modelZMain.Center_ThicknessR = model.SubRX.SpecialRight3;
-                modelZMain.CYLL = (model.SubRX.Oculus_Sinister_Cylinder * 100).ToString().GetIntStr();
-                modelZMain.CYLR = (model.SubRX.Oculus_Dexter_Cylinder * 100).ToString().GetIntStr();
-                modelZMain.DiameterL = model.SubRX.Oculus_Sinister_Diameter;
-                modelZMain.DiameterR = model.SubRX.Oculus_Dexter_Diameter;
+                modelZMain.Center_ThicknessL = model.SubRX.SpecialLeft3.Replace("CT ", "");
+                modelZMain.Center_ThicknessR = model.SubRX.SpecialRight3.Replace("CT ", "");
+
+                ////////Prism//////////////
+                var pr = model.SubRX.SpecialRight1.Replace("P ", "");
+                if (!string.IsNullOrEmpty(pr))
+                {
+                    var p1r = pr.Substring(4).GetPrismDecenterStr();
+                    var p2r = pr.Substring(0, 4);
+                    modelZMain.Prism1R = p1r;
+                    modelZMain.Prism2R = p2r;
+                }
+                //
+                var pl = model.SubRX.SpecialLeft1.Replace("P ", "");
+                if (!string.IsNullOrEmpty(pl))
+                {
+                    var p1l = pl.Substring(4).GetPrismDecenterStr();
+                    var p2l = pl.Substring(0, 4);
+                    modelZMain.Prism1L = p1l;
+                    modelZMain.Prism2L = p1l;
+                }
+                ////////Prism//////////////
+                ////////Decenter//////////////
+                var dr = model.SubRX.SpecialRight2.Replace("D ", "");
+                if (!string.IsNullOrEmpty(dr))
+                {
+                    var d1r = dr.Substring(4).GetPrismDecenterStr();
+                    var d2r = dr.Substring(0, 4);
+                    modelZMain.Decenter1R = d1r;
+                    modelZMain.Decenter2R = d2r;
+                }
+                //
+                var dl = model.SubRX.SpecialLeft2.Replace("D ", "");
+                if (!string.IsNullOrEmpty(dl))
+                {
+                    var d1l = dl.Substring(4).GetPrismDecenterStr();
+                    var d2l = dl.Substring(0, 4);
+                    modelZMain.Decenter1L = d1l;
+                    modelZMain.Decenter2L = d2l;
+                }
+                ////////Decenter//////////////
                 modelZMain.SPHL = (model.SubRX.Oculus_Sinister_Sphere * 100).ToString().GetIntStr();
                 modelZMain.SPHR = (model.SubRX.Oculus_Dexter_Sphere * 100).ToString().GetIntStr();
+                modelZMain.CYLL = (model.SubRX.Oculus_Sinister_Cylinder * 100).ToString().GetIntStr();
+                modelZMain.CYLR = (model.SubRX.Oculus_Dexter_Cylinder * 100).ToString().GetIntStr();
                 modelZMain.X_ADDL = (model.SubRX.Oculus_Sinister_Add * 100).ToString().GetIntStr();
                 modelZMain.X_ADDR = (model.SubRX.Oculus_Dexter_Add * 100).ToString().GetIntStr();
+                modelZMain.AxisR = model.SubRX.Oculus_Dexter_Axis.ToString();
+                modelZMain.AxisL = model.SubRX.Oculus_Sinister_Axis.ToString();
+
+                modelZMain.DiameterL = model.SubRX.Oculus_Sinister_Diameter;
+                modelZMain.DiameterR = model.SubRX.Oculus_Dexter_Diameter;
+
                 modelZMain.QuantityL = model.SubRX.Oculus_Sinister_Quantity;
                 modelZMain.QuantityR = model.SubRX.Oculus_Dexter_Quantity;
             }

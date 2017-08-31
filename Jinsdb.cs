@@ -14,7 +14,7 @@ namespace Jinsftpweb
             DbHelperSQL dbHelper = new DbHelperSQL(JinsPub.DbName);
             StringBuilder strSql = new StringBuilder();
             strSql.Append("delete Jins_Log");
-            strSql.Append(" where DATEADD(mm,-3,LogDate)<getdate() ;");
+            strSql.Append(" where LogDate<DATEADD(mm,-2,getdate()) ;");
             strSql.Append("insert into Jins_Log(");
             strSql.Append("ID,LogDate,OrdID,Msg)");
             strSql.Append(" values (");
