@@ -44,7 +44,7 @@ namespace System
             return Convert.ToBoolean((str.ToString().Trim() == "1" || str.ToString().Trim().ToLower() == "true") ? true : false);
         }
 
-        public static int GetIntStr(this string str)
+        public static int GetIntFromStr(this string str)
         {
             return Convert.ToInt32(Convert.ToDouble(str.ToString().Trim() == "" ? "0" : str));
         }

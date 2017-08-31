@@ -64,11 +64,11 @@ namespace Jinsftpweb
                             modelrx.Oculus_Dexter_Add = _detail.Element("oculus_dexter_add").Value.GetDecimalStr();
                             modelrx.Oculus_Sinister_Add = _detail.Element("oculus_sinister_add").Value.GetDecimalStr();
                             //
-                            modelrx.Oculus_Dexter_Diameter = _detail.Element("oculus_dexter_diameter").Value.GetIntStr();
-                            modelrx.Oculus_Sinister_Diameter = _detail.Element("oculus_sinister_diameter").Value.GetIntStr();
+                            modelrx.Oculus_Dexter_Diameter = _detail.Element("oculus_dexter_diameter").Value.GetIntFromStr();
+                            modelrx.Oculus_Sinister_Diameter = _detail.Element("oculus_sinister_diameter").Value.GetIntFromStr();
                             //
-                            modelrx.Oculus_Dexter_Quantity = _detail.Element("oculus_dexter_quantity").Value.GetIntStr();
-                            modelrx.Oculus_Sinister_Quantity = _detail.Element("oculus_sinister_quantity").Value.GetIntStr();
+                            modelrx.Oculus_Dexter_Quantity = _detail.Element("oculus_dexter_quantity").Value.GetIntFromStr();
+                            modelrx.Oculus_Sinister_Quantity = _detail.Element("oculus_sinister_quantity").Value.GetIntFromStr();
                             break;
 
                         default:
@@ -81,9 +81,9 @@ namespace Jinsftpweb
                             {
                                 ordst = new OrdST()
                                 {
-                                    SubID = item.Attribute("id").Value.GetIntStr(),
+                                    SubID = item.Attribute("id").Value.GetIntFromStr(),
                                     OPC = item.Element("opc").Value,
-                                    Qty = item.Element("qty").Value.GetIntStr(),
+                                    Qty = item.Element("qty").Value.GetIntFromStr(),
                                 };
                                 modelst.Add(ordst);
                             }
@@ -195,8 +195,16 @@ namespace Jinsftpweb
                 {
                     var p1r = pr.Substring(4).GetPrismDecenterStr();
                     var p2r = pr.Substring(0, 4);
-                    modelZMain.Prism1R = p1r;
-                    modelZMain.Prism2R = p2r;
+                    if (p1r == "UP" || p1r == "DOWN")
+                    {
+                        modelZMain.Prism1R = p1r;
+                        modelZMain.Prism2R = p2r;
+                    }
+                    else
+                    {
+                        modelZMain.Prism3R = p1r;
+                        modelZMain.Prism4R = p2r;
+                    }
                 }
                 //
                 var pl = model.SubRX.SpecialLeft1.Replace("P ", "");
@@ -204,8 +212,17 @@ namespace Jinsftpweb
                 {
                     var p1l = pl.Substring(4).GetPrismDecenterStr();
                     var p2l = pl.Substring(0, 4);
-                    modelZMain.Prism1L = p1l;
-                    modelZMain.Prism2L = p1l;
+                    if (p1l == "UP" || p1l == "DOWN")
+                    {
+                        modelZMain.Prism1L = p1l;
+                        modelZMain.Prism2L = p2l;
+                    }
+                    else
+                    {
+                        modelZMain.Prism3L = p1l;
+                        modelZMain.Prism4L = p2l;
+                    }
+
                 }
                 ////////Prism//////////////
                 ////////Decenter//////////////
@@ -214,8 +231,8 @@ namespace Jinsftpweb
                 {
                     var d1r = dr.Substring(4).GetPrismDecenterStr();
                     var d2r = dr.Substring(0, 4);
-                    modelZMain.Decenter1R = d1r;
-                    modelZMain.Decenter2R = d2r;
+                    modelZMain.Decenter3R = d1r;
+                    modelZMain.Decenter4R = d2r;
                 }
                 //
                 var dl = model.SubRX.SpecialLeft2.Replace("D ", "");
@@ -223,18 +240,18 @@ namespace Jinsftpweb
                 {
                     var d1l = dl.Substring(4).GetPrismDecenterStr();
                     var d2l = dl.Substring(0, 4);
-                    modelZMain.Decenter1L = d1l;
-                    modelZMain.Decenter2L = d2l;
+                    modelZMain.Decenter3L = d1l;
+                    modelZMain.Decenter4L = d2l;
                 }
                 ////////Decenter//////////////
-                modelZMain.SPHL = (model.SubRX.Oculus_Sinister_Sphere * 100).ToString().GetIntStr();
-                modelZMain.SPHR = (model.SubRX.Oculus_Dexter_Sphere * 100).ToString().GetIntStr();
-                modelZMain.CYLL = (model.SubRX.Oculus_Sinister_Cylinder * 100).ToString().GetIntStr();
-                modelZMain.CYLR = (model.SubRX.Oculus_Dexter_Cylinder * 100).ToString().GetIntStr();
-                modelZMain.X_ADDL = (model.SubRX.Oculus_Sinister_Add * 100).ToString().GetIntStr();
-                modelZMain.X_ADDR = (model.SubRX.Oculus_Dexter_Add * 100).ToString().GetIntStr();
-                modelZMain.AxisR = model.SubRX.Oculus_Dexter_Axis.ToString();
-                modelZMain.AxisL = model.SubRX.Oculus_Sinister_Axis.ToString();
+                modelZMain.SPHL = (model.SubRX.Oculus_Sinister_Sphere * 100).ToString().GetIntFromStr();
+                modelZMain.SPHR = (model.SubRX.Oculus_Dexter_Sphere * 100).ToString().GetIntFromStr();
+                modelZMain.CYLL = (model.SubRX.Oculus_Sinister_Cylinder * 100).ToString().GetIntFromStr();
+                modelZMain.CYLR = (model.SubRX.Oculus_Dexter_Cylinder * 100).ToString().GetIntFromStr();
+                modelZMain.X_ADDL = (model.SubRX.Oculus_Sinister_Add * 100).ToString().GetIntFromStr();
+                modelZMain.X_ADDR = (model.SubRX.Oculus_Dexter_Add * 100).ToString().GetIntFromStr();
+                modelZMain.AxisR = (model.SubRX.Oculus_Dexter_Axis * 100).ToString().GetIntFromStr().ToString();
+                modelZMain.AxisL = (model.SubRX.Oculus_Sinister_Axis * 100).ToString().GetIntFromStr().ToString();
 
                 modelZMain.DiameterL = model.SubRX.Oculus_Sinister_Diameter;
                 modelZMain.DiameterR = model.SubRX.Oculus_Dexter_Diameter;
