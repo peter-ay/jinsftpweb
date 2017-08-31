@@ -374,5 +374,39 @@ namespace Jinsftpweb
             return obj;
         }
 
+        public static DataSet GetUnConfirmFiles()
+        {
+            DataSet rs = null;
+            DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
+            var strSql = @"select 
+                            A2.ID,A2.OrdType,A2.OrdHdID,A2.OrdID 
+                            from Jins_Conet A1 with (nolock) 
+                            left join Jins_Ord_Main A2 with (nolock) on A1.BCode1=A2.OrdID
+                            where isnull(F_Confirm,0)=0";
+            rs = db.Query(strSql);
+            return rs;
+        }
+
+        public static DataSet GetOrdDetail(string id)
+        {
+            DataSet rs = null;
+            DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
+            var strSql = @"SELECT 
+                            A1.ID,A1.SubID,A1.OPC,A1.Qty
+                            FROM 
+                            dbo.Jins_Ord_ST A1 with (nolock) 
+                            where ID='" + id + @"'";
+            rs = db.Query(strSql);
+            return rs;
+        }
+
+        public static void UpdateConfirmFlat(string ordid)
+        {
+            var strSql = @"update Jins_Conet
+                            set F_Confirm=1
+                            where BCode1='" + ordid + @"'";
+            DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
+            db.ExecuteSql(strSql);
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace Jinsftpweb
     {
         void Application_Start(object sender, EventArgs e)
         {
-            this.t1_Elapsed(null, null);
+            this.t2_Elapsed(null, null);
             return;
             //定时器
             var t1 = this.CreateTimer(10000);
@@ -24,6 +24,8 @@ namespace Jinsftpweb
             t2.Elapsed += t2_Elapsed;
             var t3 = this.CreateTimer(30000);
             t3.Elapsed += t3_Elapsed;
+            //var t4 = this.CreateTimer(40000);
+            //t4.Elapsed += t4_Elapsed;
         }
         private System.Timers.Timer CreateTimer(double intervel)
         {
@@ -32,6 +34,19 @@ namespace Jinsftpweb
             myTimer1.AutoReset = true;
             return myTimer1;
         }
+
+        //void t4_Elapsed(object sender, ElapsedEventArgs e)
+        //{
+        //    try
+        //    {
+        //        RunCreateConfirmXMLFiles();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + "[CreateConfirmXMLFiles]" + ex.Message + "<br />";
+        //        Jinsdb.AddLog(ex.Message);
+        //    }
+        //}
 
         void t3_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -50,6 +65,7 @@ namespace Jinsftpweb
         {
             try
             {
+                RunGetConfirmXMLFiles();
                 RunUploadConfirmXMLFiles();
             }
             catch (Exception ex)
@@ -91,6 +107,13 @@ namespace Jinsftpweb
             Jins jins = new Jins();
             var count = jins.UploadShippingFiles();
             Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + " [" + count.ToString() + "] shippingxmlfiles upload to server.<br />";
+        }
+
+        private void RunGetConfirmXMLFiles()
+        {
+            Jins jins = new Jins();
+            var count = jins.GetConfirmFiles();
+            Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + " [" + count.ToString() + "] confirmxmlfiles create to local.<br />";
         }
 
         void Application_End(object sender, EventArgs e)
