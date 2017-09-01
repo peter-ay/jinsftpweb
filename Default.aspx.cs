@@ -12,14 +12,16 @@ namespace Jinsftpweb
         public static String html = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + " HKO Jins FTP System Runing..." + "<br />";
         protected void Page_Load(object sender, EventArgs e)
         {
-            GetDataBind();
+            GetMsg();
         }
 
-        private void GetDataBind()
+        private void GetMsg()
         {
             if (!string.IsNullOrEmpty(html))
             {
                 Response.Write(html);
+                if (html.Length >= 8000)
+                    html = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + " HKO Jins FTP System Runing..." + "<br />";
             }
         }
     }

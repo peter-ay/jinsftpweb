@@ -333,5 +333,42 @@ namespace Jinsftpweb
             }
             return doc;
         }
+
+        public static XmlDocument CreateShippingXMLFile(OrdMain model)
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlDeclaration dec = doc.CreateXmlDeclaration("1.0", "UTF-8", null);
+            doc.AppendChild(dec);
+            XmlElement root = doc.CreateElement("order");
+            doc.AppendChild(root);
+            //
+            XmlElement node = doc.CreateElement("purchase_order_header_id");
+            node.InnerText = model.OrdHdID;
+            root.AppendChild(node);
+            //
+            if (model.OrdType.ToLower() == "rx")
+            {
+                node = doc.CreateElement("goods_issue_slip");
+                node.InnerText = "";
+                root.AppendChild(node);
+            }
+            else
+            {
+                model.SubST.ForEach(it =>
+                {
+                    node = doc.CreateElement("detail");
+                    node.SetAttribute("id", it.SubID.ToString());
+                    XmlElement nodeUnder = doc.CreateElement("opc");
+                    nodeUnder.InnerText = it.OPC;
+                    node.AppendChild(nodeUnder);
+                    nodeUnder = doc.CreateElement("confirmed_qty");
+                    nodeUnder.InnerText = it.Qty.ToString();
+                    node.AppendChild(nodeUnder);
+                    root.AppendChild(node);
+                });
+
+            }
+            return doc;
+        }
     }
 }

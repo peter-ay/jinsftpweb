@@ -101,6 +101,43 @@ namespace Jinsftpweb
             return rs.Tables[0].Rows.Count;
         }
 
+        public int GetShippingFiles()
+        {
+            var rs = Jinsdb.GetUnShippingFiles();
+            if (rs.Tables[0].Rows.Count <= 0) return 0;
+            foreach (DataRow item in rs.Tables[0].Rows)
+            {
+                var _ID = item["ID"].ToString();
+                var _OrdType = item["OrdType"].ToString();
+                var _OrdHdID = item["OrdHdID"].ToString();
+                var _OrdID = item["OrdID"].ToString();
+                JinsPub.OrdID = _OrdID;
+                OrdMain model = new OrdMain()
+                {
+                    ID = _ID,
+                    OrdID = _OrdID,
+                    OrdHdID = _OrdHdID,
+                    OrdType = _OrdType
+                };
+                if (model.OrdType.ToLower() != "rx")
+                {
+                    model.SubST = new List<OrdST>();
+                    var rsdetail = Jinsdb.GetOrdDetail(model.ID);
+                    foreach (DataRow item2 in rsdetail.Tables[0].Rows)
+                    {
+                        var subid = item2["SubID"].ToString().GetIntFromStr();
+                        var opc = item2["OPC"].ToString();
+                        var qty = item2["Qty"].ToString().GetIntFromStr();
+                        model.SubST.Add(new OrdST() { ID = model.ID, SubID = subid, OPC = opc, Qty = qty });
+                    }
+                }
+                var xmldoc = Jinsxml.CreateConfirmXMLFile(model);
+                xmldoc.Save(localFolder_confirm + @"\" + model.OrdID + @".xml");
+                Jinsdb.UpdateConfirmFlat(model.OrdID);
+            }
+            return rs.Tables[0].Rows.Count;
+        }
+
         public int UploadConfirmFiles()
         {
             return this.UploadXMLFiles(this.localFolder_confirm, this.ftpServerFolder_confirmation);

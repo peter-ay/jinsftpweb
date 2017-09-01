@@ -7,7 +7,7 @@
     <script>
         setTimeout("self.location.reload();", 60000);
     </script>
-    <title></title>
+    <title>HKO Jinsftpweb</title>
 </head>
 <body>
     <form id="form1" runat="server">

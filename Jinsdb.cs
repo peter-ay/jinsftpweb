@@ -27,6 +27,8 @@ namespace Jinsftpweb
             dbHelper.ExecuteSql(strSql.ToString(), parameters);
         }
 
+        #region AddOrd
+
         public static void AddOrd(OrdMain model)
         {
             DbHelperSQL dbHelper = new DbHelperSQL(JinsPub.DbName);
@@ -374,6 +376,10 @@ namespace Jinsftpweb
             return obj;
         }
 
+        #endregion
+
+        #region GetUnConfirmFiles
+
         public static DataSet GetUnConfirmFiles()
         {
             DataSet rs = null;
@@ -382,7 +388,7 @@ namespace Jinsftpweb
                             A2.ID,A2.OrdType,A2.OrdHdID,A2.OrdID 
                             from Jins_Conet A1 with (nolock) 
                             left join Jins_Ord_Main A2 with (nolock) on A1.BCode1=A2.OrdID
-                            where isnull(F_Confirm,0)=0";
+                            where isnull(F_Confirm,0)=0 and A2.ID is not null";
             rs = db.Query(strSql);
             return rs;
         }
@@ -408,5 +414,33 @@ namespace Jinsftpweb
             DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
             db.ExecuteSql(strSql);
         }
+
+        #endregion
+
+        #region GetUnShippingFiles
+
+        public static DataSet GetUnShippingFiles()
+        {
+            DataSet rs = null;
+            DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
+            var strSql = @"select 
+                            A2.ID,A2.OrdType,A2.OrdHdID,A2.OrdID 
+                            from Jins_Conet A1 with (nolock) 
+                            left join Jins_Ord_Main A2 with (nolock) on A1.BCode1=A2.OrdID
+                            where isnull(F_Shipping,0)=0 and A2.ID is not null";
+            rs = db.Query(strSql);
+            return rs;
+        }
+
+        public static void UpdateShippingFlat(string ordid)
+        {
+            var strSql = @"update Jins_Conet
+                            set F_Shipping=1
+                            where BCode1='" + ordid + @"'";
+            DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
+            db.ExecuteSql(strSql);
+        }
+
+        #endregion
     }
 }

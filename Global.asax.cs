@@ -15,17 +15,15 @@ namespace Jinsftpweb
     {
         void Application_Start(object sender, EventArgs e)
         {
-            this.t2_Elapsed(null, null);
-            return;
+            //this.t2_Elapsed(null, null);
+            //return;
             //定时器
-            var t1 = this.CreateTimer(10000);
+            var t1 = this.CreateTimer(600000);
             t1.Elapsed += t1_Elapsed;
-            var t2 = this.CreateTimer(20000);
+            var t2 = this.CreateTimer(700000);
             t2.Elapsed += t2_Elapsed;
-            var t3 = this.CreateTimer(30000);
-            t3.Elapsed += t3_Elapsed;
-            //var t4 = this.CreateTimer(40000);
-            //t4.Elapsed += t4_Elapsed;
+            //var t3 = this.CreateTimer(30000);
+            //t3.Elapsed += t3_Elapsed;
         }
         private System.Timers.Timer CreateTimer(double intervel)
         {
@@ -34,19 +32,6 @@ namespace Jinsftpweb
             myTimer1.AutoReset = true;
             return myTimer1;
         }
-
-        //void t4_Elapsed(object sender, ElapsedEventArgs e)
-        //{
-        //    try
-        //    {
-        //        RunCreateConfirmXMLFiles();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + "[CreateConfirmXMLFiles]" + ex.Message + "<br />";
-        //        Jinsdb.AddLog(ex.Message);
-        //    }
-        //}
 
         void t3_Elapsed(object sender, ElapsedEventArgs e)
         {
@@ -83,7 +68,7 @@ namespace Jinsftpweb
             }
             catch (Exception ex)
             {
-                Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + ex.Message + "<br />";
+                Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + "[Getting]" + ex.Message + "<br />";
                 Jinsdb.AddLog(ex.Message);
             }
         }
