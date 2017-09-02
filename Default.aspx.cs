@@ -21,7 +21,10 @@ namespace Jinsftpweb
             {
                 Response.Write(html);
                 if (html.Length >= 8000)
+                {
+                    html = string.Empty;
                     html = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + " HKO Jins FTP System Runing..." + "<br />";
+                }
             }
         }
     }
