@@ -385,10 +385,8 @@ namespace Jinsftpweb
             DataSet rs = null;
             DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
             var strSql = @"select 
-                            A2.ID,A2.OrdType,A2.OrdHdID,A2.OrdID 
-                            from Jins_Conet A1 with (nolock) 
-                            left join Jins_Ord_Main A2 with (nolock) on A1.BCode1=A2.OrdID
-                            where isnull(F_Confirm,0)=0 and A2.ID is not null";
+                            A1.ID,A1.OrdType,A1.OrdHdID,A1.OrdID 
+                            from V_Jins_UnConfirm A1";
             rs = db.Query(strSql);
             return rs;
         }
@@ -401,6 +399,19 @@ namespace Jinsftpweb
                             A1.ID,A1.SubID,A1.OPC,A1.Qty
                             FROM 
                             dbo.Jins_Ord_ST A1 with (nolock) 
+                            where ID='" + id + @"'";
+            rs = db.Query(strSql);
+            return rs;
+        }
+
+        public static DataSet GetOrdShipDetail(string id)
+        {
+            DataSet rs = null;
+            DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
+            var strSql = @"SELECT 
+                            A1.ID,A1.SubID,A1.OPC,A1.QtyShip
+                            FROM 
+                            dbo.Jins_Ord_ST_Shipping2 A1 with (nolock) 
                             where ID='" + id + @"'";
             rs = db.Query(strSql);
             return rs;
@@ -419,24 +430,42 @@ namespace Jinsftpweb
 
         #region GetUnShippingFiles
 
-        public static DataSet GetUnShippingFiles()
+        public static DataSet GetUnShippingFilesRX()
         {
             DataSet rs = null;
             DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
             var strSql = @"select 
-                            A2.ID,A2.OrdType,A2.OrdHdID,A2.OrdID 
-                            from Jins_Conet A1 with (nolock) 
-                            left join Jins_Ord_Main A2 with (nolock) on A1.BCode1=A2.OrdID
-                            where isnull(F_Shipping,0)=0 and A2.ID is not null";
+                            A1.ID,A1.OrdType,A1.OrdHdID,A1.OrdID,A1.ECode 
+                            from V_Jins_UnShippingRX A1";
             rs = db.Query(strSql);
             return rs;
         }
 
-        public static void UpdateShippingFlat(string ordid)
+        public static DataSet GetUnShippingFilesST()
+        {
+            DataSet rs = null;
+            DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
+            var strSql = @"select 
+                            A1.ID,A1.OrdType,A1.OrdHdID,A1.OrdID,A1.ECode  
+                            from V_Jins_UnShippingST A1";
+            rs = db.Query(strSql);
+            return rs;
+        }
+
+        public static void UpdateShippingFlatRX(string ordid)
         {
             var strSql = @"update Jins_Conet
                             set F_Shipping=1
                             where BCode1='" + ordid + @"'";
+            DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
+            db.ExecuteSql(strSql);
+        }
+
+        public static void UpdateShippingFlatST(string eCode)
+        {
+            var strSql = @"update Jins_Ord_ST_Shipping1
+                            set F_Shipping=1
+                            where ECode='" + eCode + @"'";
             DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
             db.ExecuteSql(strSql);
         }

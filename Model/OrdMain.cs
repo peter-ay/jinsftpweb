@@ -88,5 +88,7 @@ namespace Jinsftpweb.Model
             set;
         }
 
+        public string ECode { get; set; }
+
     }
 }

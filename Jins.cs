@@ -101,39 +101,59 @@ namespace Jinsftpweb
             return rs.Tables[0].Rows.Count;
         }
 
-        public int GetShippingFiles()
+        public int GetShippingFilesRX()
         {
-            var rs = Jinsdb.GetUnShippingFiles();
+            var rs = Jinsdb.GetUnShippingFilesRX();
             if (rs.Tables[0].Rows.Count <= 0) return 0;
             foreach (DataRow item in rs.Tables[0].Rows)
             {
-                var _ID = item["ID"].ToString();
-                var _OrdType = item["OrdType"].ToString();
-                var _OrdHdID = item["OrdHdID"].ToString();
-                var _OrdID = item["OrdID"].ToString();
-                JinsPub.OrdID = _OrdID;
-                OrdMain model = new OrdMain()
+                OrdMain model = this.PrepareShippingModel(item);
+                var xmldoc = Jinsxml.CreateShippingXMLFile(model);
+                xmldoc.Save(localFolder_shipping + @"\" + model.OrdID + @".xml");
+                Jinsdb.UpdateShippingFlatRX(model.OrdID);
+            }
+            return rs.Tables[0].Rows.Count;
+        }
+
+        private OrdMain PrepareShippingModel(DataRow item)
+        {
+            var _ID = item["ID"].ToString();
+            var _OrdType = item["OrdType"].ToString();
+            var _OrdHdID = item["OrdHdID"].ToString();
+            var _OrdID = item["OrdID"].ToString();
+            var _ECode = item["ECode"].ToString();
+            JinsPub.OrdID = _OrdID;
+            OrdMain model = new OrdMain()
+            {
+                ID = _ID,
+                OrdID = _OrdID,
+                OrdHdID = _OrdHdID,
+                OrdType = _OrdType,
+                ECode = _ECode
+            };
+            return model;
+        }
+
+        public int GetShippingFilesST()
+        {
+            var rs = Jinsdb.GetUnShippingFilesST();
+            if (rs.Tables[0].Rows.Count <= 0) return 0;
+            foreach (DataRow item in rs.Tables[0].Rows)
+            {
+                OrdMain model = this.PrepareShippingModel(item);
+                model.SubST = new List<OrdST>();
+                var rsdetail = Jinsdb.GetOrdShipDetail(model.ID);
+                foreach (DataRow item2 in rsdetail.Tables[0].Rows)
                 {
-                    ID = _ID,
-                    OrdID = _OrdID,
-                    OrdHdID = _OrdHdID,
-                    OrdType = _OrdType
-                };
-                if (model.OrdType.ToLower() != "rx")
-                {
-                    model.SubST = new List<OrdST>();
-                    var rsdetail = Jinsdb.GetOrdDetail(model.ID);
-                    foreach (DataRow item2 in rsdetail.Tables[0].Rows)
-                    {
-                        var subid = item2["SubID"].ToString().GetIntFromStr();
-                        var opc = item2["OPC"].ToString();
-                        var qty = item2["Qty"].ToString().GetIntFromStr();
-                        model.SubST.Add(new OrdST() { ID = model.ID, SubID = subid, OPC = opc, Qty = qty });
-                    }
+                    var subid = item2["SubID"].ToString().GetIntFromStr();
+                    var opc = item2["OPC"].ToString();
+                    var qtyship = item2["QtyShip"].ToString().GetIntFromStr();
+                    model.SubST.Add(new OrdST() { ID = model.ID, SubID = subid, OPC = opc, Qty = qtyship });
                 }
-                var xmldoc = Jinsxml.CreateConfirmXMLFile(model);
-                xmldoc.Save(localFolder_confirm + @"\" + model.OrdID + @".xml");
-                Jinsdb.UpdateConfirmFlat(model.OrdID);
+
+                var xmldoc = Jinsxml.CreateShippingXMLFile(model);
+                xmldoc.Save(localFolder_shipping + @"\" + model.OrdID + @".xml");
+                Jinsdb.UpdateShippingFlatST(model.OrdID);
             }
             return rs.Tables[0].Rows.Count;
         }

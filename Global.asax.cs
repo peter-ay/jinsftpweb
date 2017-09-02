@@ -22,8 +22,8 @@ namespace Jinsftpweb
             t1.Elapsed += t1_Elapsed;
             var t2 = this.CreateTimer(700000);
             t2.Elapsed += t2_Elapsed;
-            //var t3 = this.CreateTimer(30000);
-            //t3.Elapsed += t3_Elapsed;
+            var t3 = this.CreateTimer(900000);
+            t3.Elapsed += t3_Elapsed;
         }
         private System.Timers.Timer CreateTimer(double intervel)
         {
@@ -37,6 +37,7 @@ namespace Jinsftpweb
         {
             try
             {
+                RunGetShippingXMLFiles();
                 RunUploadShippingXMLFiles();
             }
             catch (Exception ex)
@@ -99,6 +100,15 @@ namespace Jinsftpweb
             Jins jins = new Jins();
             var count = jins.GetConfirmFiles();
             Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + " [" + count.ToString() + "] confirmxmlfiles create to local.<br />";
+        }
+
+        private void RunGetShippingXMLFiles()
+        {
+            Jins jins = new Jins();
+            var count = jins.GetShippingFilesRX();
+            Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + " [" + count.ToString() + "] RXshippingxmlfiles create to local.<br />";
+            var count2 = jins.GetShippingFilesST();
+            Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + " [" + count2.ToString() + "] STshippingxmlfiles create to local.<br />";
         }
 
         void Application_End(object sender, EventArgs e)
