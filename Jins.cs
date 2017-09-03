@@ -136,6 +136,8 @@ namespace Jinsftpweb
 
         public int GetShippingFilesST()
         {
+            Jinsdb.GetImportShippingST();
+            
             var rs = Jinsdb.GetUnShippingFilesST();
             if (rs.Tables[0].Rows.Count <= 0) return 0;
             foreach (DataRow item in rs.Tables[0].Rows)

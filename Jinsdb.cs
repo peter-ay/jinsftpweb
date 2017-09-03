@@ -471,5 +471,15 @@ namespace Jinsftpweb
         }
 
         #endregion
+
+        #region Get Import shipping
+        public static void GetImportShippingST()
+        {
+            var strSql = @"SP_Jins_ImportUnShippingST";
+            DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
+            db.RunProcedure(strSql, null);
+        }
+
+        #endregion
     }
 }
