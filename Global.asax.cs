@@ -15,7 +15,7 @@ namespace Jinsftpweb
     {
         void Application_Start(object sender, EventArgs e)
         {
-            //this.t1_Elapsed(null, null);
+            this.t3_Elapsed(null, null);
             //return;
             //定时器
             var t1 = this.CreateTimer(600000);

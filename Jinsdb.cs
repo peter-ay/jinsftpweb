@@ -477,7 +477,7 @@ namespace Jinsftpweb
         {
             var strSql = @"SP_Jins_ImportUnShippingST";
             DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
-            db.RunProcedure(strSql, null);
+            db.RunProcedure(strSql, new IDataParameter[] { });
         }
 
         #endregion
