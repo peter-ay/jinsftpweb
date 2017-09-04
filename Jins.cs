@@ -132,8 +132,8 @@ namespace Jinsftpweb
                     }
                 }
                 var xmldoc = Jinsxml.CreateConfirmXMLFile(model);
-                xmldoc.Save(localFolder_confirm + @"\" + model.OrdID + @".xml");
-                Jinsdb.UpdateConfirmFlat(model.OrdID);
+                xmldoc.Save(localFolder_shipping + @"\" + model.OrdID + @".xml");
+                Jinsdb.UpdateShippingFlat(model.OrdID);
             }
             return rs.Tables[0].Rows.Count;
         }
