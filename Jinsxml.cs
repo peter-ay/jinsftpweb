@@ -346,13 +346,11 @@ namespace Jinsftpweb
             node.InnerText = model.OrdHdID;
             root.AppendChild(node);
             //
-            if (model.OrdType.ToLower() == "rx")
-            {
-                node = doc.CreateElement("goods_issue_slip");
-                node.InnerText = "";
-                root.AppendChild(node);
-            }
-            else
+            node = doc.CreateElement("goods_issue_slip");
+            node.InnerText = model.ECode;
+            root.AppendChild(node);
+
+            if (model.OrdType.ToLower() != "rx")
             {
                 model.SubST.ForEach(it =>
                 {
@@ -361,13 +359,13 @@ namespace Jinsftpweb
                     XmlElement nodeUnder = doc.CreateElement("opc");
                     nodeUnder.InnerText = it.OPC;
                     node.AppendChild(nodeUnder);
-                    nodeUnder = doc.CreateElement("confirmed_qty");
+                    nodeUnder = doc.CreateElement("issued_quantity");
                     nodeUnder.InnerText = it.Qty.ToString();
                     node.AppendChild(nodeUnder);
                     root.AppendChild(node);
                 });
-
             }
+
             return doc;
         }
     }
