@@ -4,6 +4,8 @@
 # User-specific files
 xml/
 ftp.xml
+Properties/PublishProfiles/jinsftpweb.pubxml
+
 
 *.suo
 *.user
