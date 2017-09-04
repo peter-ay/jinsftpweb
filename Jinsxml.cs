@@ -250,8 +250,8 @@ namespace Jinsftpweb
                 modelZMain.CYLR = (model.SubRX.Oculus_Dexter_Cylinder * 100).ToString().GetIntFromStr();
                 modelZMain.X_ADDL = (model.SubRX.Oculus_Sinister_Add * 100).ToString().GetIntFromStr();
                 modelZMain.X_ADDR = (model.SubRX.Oculus_Dexter_Add * 100).ToString().GetIntFromStr();
-                modelZMain.AxisR = (model.SubRX.Oculus_Dexter_Axis * 100).ToString().GetIntFromStr().ToString();
-                modelZMain.AxisL = (model.SubRX.Oculus_Sinister_Axis * 100).ToString().GetIntFromStr().ToString();
+                modelZMain.AxisR = (model.SubRX.Oculus_Dexter_Axis).ToString().GetIntFromStr().ToString();
+                modelZMain.AxisL = (model.SubRX.Oculus_Sinister_Axis).ToString().GetIntFromStr().ToString();
 
                 modelZMain.DiameterL = model.SubRX.Oculus_Sinister_Diameter;
                 modelZMain.DiameterR = model.SubRX.Oculus_Dexter_Diameter;
