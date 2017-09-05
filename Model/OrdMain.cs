@@ -90,5 +90,6 @@ namespace Jinsftpweb.Model
 
         public string ECode { get; set; }
 
+        public bool F_Reject { get; set; }
     }
 }

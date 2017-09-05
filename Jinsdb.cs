@@ -385,7 +385,7 @@ namespace Jinsftpweb
             DataSet rs = null;
             DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
             var strSql = @"select 
-                            A1.ID,A1.OrdType,A1.OrdHdID,A1.OrdID 
+                            A1.ID,A1.OrdType,A1.OrdHdID,A1.OrdID,A1.F_Reject
                             from V_Jins_UnConfirm A1";
             rs = db.Query(strSql);
             return rs;
@@ -461,11 +461,11 @@ namespace Jinsftpweb
             db.ExecuteSql(strSql);
         }
 
-        public static void UpdateShippingFlatST(string eCode)
+        public static void UpdateShippingFlatST(OrdMain model)
         {
             var strSql = @"update Jins_Ord_ST_Shipping1
                             set F_Shipping=1
-                            where ECode='" + eCode + @"'";
+                            where ECode='" + model.ECode + @"' and OrdID='" + model.OrdID + @"'";
             DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
             db.ExecuteSql(strSql);
         }

@@ -311,7 +311,10 @@ namespace Jinsftpweb
                 node = doc.CreateElement("detail");
                 node.SetAttribute("id", "10");
                 XmlElement nodeUnder = doc.CreateElement("confirmed_qty");
-                nodeUnder.InnerText = "1";
+                if (model.F_Reject)
+                    nodeUnder.InnerText = "0";
+                else
+                    nodeUnder.InnerText = "1";
                 node.AppendChild(nodeUnder);
                 root.AppendChild(node);
             }
@@ -325,7 +328,10 @@ namespace Jinsftpweb
                     nodeUnder.InnerText = it.OPC;
                     node.AppendChild(nodeUnder);
                     nodeUnder = doc.CreateElement("confirmed_qty");
-                    nodeUnder.InnerText = it.Qty.ToString();
+                    if (model.F_Reject)
+                        nodeUnder.InnerText = "0";
+                    else
+                        nodeUnder.InnerText = it.Qty.ToString();
                     node.AppendChild(nodeUnder);
                     root.AppendChild(node);
                 });

@@ -74,13 +74,15 @@ namespace Jinsftpweb
                 var _OrdType = item["OrdType"].ToString();
                 var _OrdHdID = item["OrdHdID"].ToString();
                 var _OrdID = item["OrdID"].ToString();
+                var _F_Reject = item["F_Reject"].ToString().GetBoolStr();
                 JinsPub.OrdID = _OrdID;
                 OrdMain model = new OrdMain()
                 {
                     ID = _ID,
                     OrdID = _OrdID,
                     OrdHdID = _OrdHdID,
-                    OrdType = _OrdType
+                    OrdType = _OrdType,
+                    F_Reject = _F_Reject
                 };
                 if (model.OrdType.ToLower() != "rx")
                 {
@@ -137,7 +139,7 @@ namespace Jinsftpweb
         public int GetShippingFilesST()
         {
             Jinsdb.GetImportShippingST();
-            
+
             var rs = Jinsdb.GetUnShippingFilesST();
             if (rs.Tables[0].Rows.Count <= 0) return 0;
             foreach (DataRow item in rs.Tables[0].Rows)
@@ -154,7 +156,7 @@ namespace Jinsftpweb
                 }
                 var xmldoc = Jinsxml.CreateShippingXMLFile(model);
                 xmldoc.Save(localFolder_shipping + @"\" + model.OrdID + @".xml");
-                Jinsdb.UpdateShippingFlatST(model.OrdID);
+                Jinsdb.UpdateShippingFlatST(model);
             }
             return rs.Tables[0].Rows.Count;
         }
