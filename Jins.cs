@@ -78,11 +78,15 @@ namespace Jinsftpweb
                 fileName = fi.Name;
                 JinsPub.OrdID = fileName.Substring(0, fileName.LastIndexOf("."));
                 var fullPath = localFolder_order + @"\" + fileName;
-                OrdMain model = null;
+                OrdMain model = Jinsxml.ConvertXMLtoOrdModel(fullPath);
+                if (Jinsdb.CheckOrdReject(model.OrdID))
+                {
+                    fi.Delete();
+                    continue;
+                }
+                Jinsdb.DeleteOrdErr(model.OrdID);
                 try
                 {
-                    model = Jinsxml.ConvertXMLtoOrdModel(fullPath);
-                    Jinsdb.DeleteOrdErr(model.OrdID);
                     Jinsdb.AddOrd(model);
                     fi.Delete();
                 }
@@ -126,6 +130,7 @@ namespace Jinsftpweb
                         F_Read = false,
                         F_Reject = false,
                         F_Shipping = 0,
+                        F_Err_Convert = true
                     };
                     Jinsdb.AddOrdErr(modelErr);
                 }

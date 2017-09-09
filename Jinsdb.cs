@@ -62,14 +62,26 @@ namespace Jinsftpweb
             //
             dbHelper.ExecuteCmdObjectTran(cmdObjec);
         }
+        public static bool CheckOrdReject(string ordID)
+        {
+            DbHelperSQL dbHelper = new DbHelperSQL(JinsPub.DbName);
+            //
+            var strSql = @"select ID from Jins_Conet A1 with (nolock) where BCode1=@OrdID and F_Reject=1";
+            SqlParameter[] parameters ={
+					new SqlParameter("@OrdID", SqlDbType.VarChar,50)};
+            parameters[0].Value = ordID;
+            var ds = dbHelper.GetSingle(strSql, parameters);
+            return ds != null;
+            // 
+        }
 
-        private static DbHelperCmdObject PrePareOrdDeleteErr(string id)
+        private static DbHelperCmdObject PrePareOrdDeleteErr(string ordID)
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("SP_JinsOrd_DeleteOrdErr");
             SqlParameter[] parameters ={
 					new SqlParameter("@OrdID", SqlDbType.VarChar,50)};
-            parameters[0].Value = id;
+            parameters[0].Value = ordID;
             //
             DbHelperCmdObject obj = new DbHelperCmdObject(strSql.ToString(), parameters, CommandType.StoredProcedure);
             return obj;
@@ -116,9 +128,9 @@ namespace Jinsftpweb
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into Jins_Conet(");
-            strSql.Append("ID,BCode1,BCode2,F_Read,F_Confirm,F_Shipping,F_Reject)");
+            strSql.Append("ID,BCode1,BCode2,F_Read,F_Confirm,F_Shipping,F_Reject,F_Err_Convert)");
             strSql.Append(" values (");
-            strSql.Append("@ID,@BCode1,@BCode2,@F_Read,@F_Confirm,@F_Shipping,@F_Reject)");
+            strSql.Append("@ID,@BCode1,@BCode2,@F_Read,@F_Confirm,@F_Shipping,@F_Reject,@F_Err_Convert)");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.VarChar,25),
 					new SqlParameter("@BCode1", SqlDbType.VarChar,50),
@@ -126,7 +138,8 @@ namespace Jinsftpweb
 					new SqlParameter("@F_Read", SqlDbType.Bit,1),
 					new SqlParameter("@F_Confirm", SqlDbType.Bit,1),
 					new SqlParameter("@F_Shipping", SqlDbType.Int,4),
-					new SqlParameter("@F_Reject", SqlDbType.Bit,1)};
+					new SqlParameter("@F_Reject", SqlDbType.Bit,1),
+                    new SqlParameter("@F_Err_Convert", SqlDbType.Bit,1)};
             parameters[0].Value = model.ID;
             parameters[1].Value = model.BCode1;
             parameters[2].Value = model.BCode2;
@@ -134,6 +147,7 @@ namespace Jinsftpweb
             parameters[4].Value = model.F_Confirm;
             parameters[5].Value = model.F_Shipping;
             parameters[6].Value = model.F_Reject;
+            parameters[7].Value = model.F_Err_Convert;
             //
             DbHelperCmdObject obj = new DbHelperCmdObject(strSql.ToString(), parameters);
             return obj;

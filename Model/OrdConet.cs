@@ -20,5 +20,7 @@ namespace Jinsftpweb.Model
         public int F_Shipping { get; set; }
 
         public bool F_Reject { get; set; }
+
+        public bool F_Err_Convert { get; set; }
     }
 }
