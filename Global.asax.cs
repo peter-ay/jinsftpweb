@@ -15,8 +15,8 @@ namespace Jinsftpweb
     {
         void Application_Start(object sender, EventArgs e)
         {
-            this.t4_Elapsed(null, null);
-            return;
+            //this.t4_Elapsed(null, null);
+            //return;
             //定时器
             var t1 = this.CreateTimer(600000);
             t1.Elapsed += t1_Elapsed;
@@ -24,7 +24,7 @@ namespace Jinsftpweb
             t2.Elapsed += t2_Elapsed;
             var t3 = this.CreateTimer(900000);
             t3.Elapsed += t3_Elapsed;
-            var t4 = this.CreateTimer(150000);
+            var t4 = this.CreateTimer(180000);
             t4.Elapsed += t4_Elapsed;
         }
         private System.Timers.Timer CreateTimer(double intervel)
