@@ -53,15 +53,86 @@ namespace Jinsftpweb
                 JinsPub.OrdID = fileName.Substring(0, fileName.LastIndexOf("."));
                 ftp.DownloadFile(this.ftpServerIP, this.ftpServerFolder_order, this.ftpUserID, this.ftpPassword, fileName, localFolder_order, fileName);
                 File.Copy(Path.Combine(localFolder_order, fileName), Path.Combine(localFolder_order + @"\backup", fileName), true);
-                var fullPath = localFolder_order + @"\" + fileName;
-                var model = Jinsxml.ConvertXMLtoOrdModel(fullPath);
-                Jinsdb.AddOrd(model);
-                FileInfo fi = new FileInfo(fullPath);
-                fi.Delete();
+                //var fullPath = localFolder_order + @"\" + fileName;
+                //var model = Jinsxml.ConvertXMLtoOrdModel(fullPath);
+                //Jinsdb.AddOrd(model);
+                //FileInfo fi = new FileInfo(fullPath);
+                //fi.Delete();
                 ftp.DeleteFile(this.ftpServerIP, this.ftpServerFolder_order, fileName, this.ftpUserID, this.ftpPassword);
                 countGetFiles++;
             }
             return countGetFiles;
+        }
+
+        public int ConvertXMLFile()
+        {
+            DirectoryInfo folder = new DirectoryInfo(localFolder_order);
+            FileInfo[] fileList = null;
+            string fileName = "";
+            var count = 0;
+            fileList = folder.GetFiles("*.xml");
+            if (fileList.Count() <= 0) return 0;
+
+            foreach (FileInfo fi in fileList)
+            {
+                fileName = fi.Name;
+                JinsPub.OrdID = fileName.Substring(0, fileName.LastIndexOf("."));
+                var fullPath = localFolder_order + @"\" + fileName;
+                OrdMain model = null;
+                try
+                {
+                    model = Jinsxml.ConvertXMLtoOrdModel(fullPath);
+                    Jinsdb.DeleteOrdErr(model.OrdID);
+                    Jinsdb.AddOrd(model);
+                    fi.Delete();
+                }
+                catch (Exception ex)
+                {
+                    OrdMain modelErr = new OrdMain()
+                    {
+                        Address1 = "",
+                        Created = DateTime.Now,
+                        ECode = "",
+                        OrdHdID = model.OrdHdID,
+                        Postal = "",
+                        SalesOfficeCode = "",
+                        SalesOfficeName = "",
+                        OrdType = model.OrdType,
+                        OrdID = model.OrdID,
+                        Tel = "",
+                        Memo = "Err",
+                    };
+                    modelErr.SubZ = new OrdZ()
+                    {
+                        BillCode = model.OrdID,
+                        Remark = ex.Message,
+                        BillDate = model.Created,
+                        BillType = "",
+                        ConsignDate = model.Created,
+                        CusCode = "",
+                        ML = "",
+                        MR = "",
+                        Notes = "",
+                        OBillCode = "",
+                        QtyL = 0,
+                        QtyR = 0,
+                        SumQty = 0
+                    };
+                    modelErr.SubConet = new OrdConet()
+                    {
+                        BCode1 = model.OrdID,
+                        BCode2 = "*轉換錯誤請參考備註信息*",
+                        F_Confirm = false,
+                        F_Read = false,
+                        F_Reject = false,
+                        F_Shipping = 0,
+                    };
+                    Jinsdb.AddOrdErr(modelErr);
+                }
+                count++;
+            }
+
+            return count;
         }
 
         public int GetConfirmFiles()

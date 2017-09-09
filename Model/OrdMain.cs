@@ -70,23 +70,13 @@ namespace Jinsftpweb.Model
             set;
         }
 
-        public List<OrdST> SubST
-        {
-            get;
-            set;
-        }
+        public List<OrdST> SubST { get; set; }
 
-        public OrdZ SubZ
-        {
-            get;
-            set;
-        }
+        public OrdZ SubZ { get; set; }
 
-        public OrdZMain SubZMain
-        {
-            get;
-            set;
-        }
+        public OrdZMain SubZMain { get; set; }
+
+        public OrdConet SubConet { get; set; }
 
         public string ECode { get; set; }
 

@@ -29,6 +29,52 @@ namespace Jinsftpweb
 
         #region AddOrd
 
+        public static void AddOrdErr(OrdMain model)
+        {
+            DbHelperSQL dbHelper = new DbHelperSQL(JinsPub.DbName);
+            List<DbHelperCmdObject> cmdObjec = new List<DbHelperCmdObject>();
+            DbHelperCmdObject obj = null;
+            //
+            model.ID = JinsPub.ID25;
+            //
+            obj = PrePareOrdMain(model);
+            cmdObjec.Add(obj);
+            //
+            model.SubZ.ID = model.ID;
+            obj = PrePareOrdZ(model.SubZ);
+            cmdObjec.Add(obj);
+            //
+            model.SubConet.ID = JinsPub.ID25;
+            obj = PrePareOrdConet(model.SubConet);
+            cmdObjec.Add(obj);
+            //
+            dbHelper.ExecuteCmdObjectTran(cmdObjec);
+        }
+
+        public static void DeleteOrdErr(string id)
+        {
+            DbHelperSQL dbHelper = new DbHelperSQL(JinsPub.DbName);
+            List<DbHelperCmdObject> cmdObjec = new List<DbHelperCmdObject>();
+            DbHelperCmdObject obj = null;
+            //
+            obj = PrePareOrdDeleteErr(id);
+            cmdObjec.Add(obj);
+            //
+            dbHelper.ExecuteCmdObjectTran(cmdObjec);
+        }
+
+        private static DbHelperCmdObject PrePareOrdDeleteErr(string id)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("SP_JinsOrd_DeleteOrdErr");
+            SqlParameter[] parameters ={
+					new SqlParameter("@OrdID", SqlDbType.VarChar,50)};
+            parameters[0].Value = id;
+            //
+            DbHelperCmdObject obj = new DbHelperCmdObject(strSql.ToString(), parameters, CommandType.StoredProcedure);
+            return obj;
+        }
+
         public static void AddOrd(OrdMain model)
         {
             DbHelperSQL dbHelper = new DbHelperSQL(JinsPub.DbName);
@@ -36,6 +82,7 @@ namespace Jinsftpweb
             DbHelperCmdObject obj = null;
             //
             model.ID = JinsPub.ID25;
+            //
             obj = PrePareOrdMain(model);
             cmdObjec.Add(obj);
             if (model.OrdType.ToLower() == "rx")
@@ -63,6 +110,33 @@ namespace Jinsftpweb
             obj = PrePareOrdSaveVerify(model.ID);
             cmdObjec.Add(obj);
             dbHelper.ExecuteCmdObjectTran(cmdObjec);
+        }
+
+        private static DbHelperCmdObject PrePareOrdConet(OrdConet model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into Jins_Conet(");
+            strSql.Append("ID,BCode1,BCode2,F_Read,F_Confirm,F_Shipping,F_Reject)");
+            strSql.Append(" values (");
+            strSql.Append("@ID,@BCode1,@BCode2,@F_Read,@F_Confirm,@F_Shipping,@F_Reject)");
+            SqlParameter[] parameters = {
+					new SqlParameter("@ID", SqlDbType.VarChar,25),
+					new SqlParameter("@BCode1", SqlDbType.VarChar,50),
+					new SqlParameter("@BCode2", SqlDbType.VarChar,30),
+					new SqlParameter("@F_Read", SqlDbType.Bit,1),
+					new SqlParameter("@F_Confirm", SqlDbType.Bit,1),
+					new SqlParameter("@F_Shipping", SqlDbType.Int,4),
+					new SqlParameter("@F_Reject", SqlDbType.Bit,1)};
+            parameters[0].Value = model.ID;
+            parameters[1].Value = model.BCode1;
+            parameters[2].Value = model.BCode2;
+            parameters[3].Value = model.F_Read;
+            parameters[4].Value = model.F_Confirm;
+            parameters[5].Value = model.F_Shipping;
+            parameters[6].Value = model.F_Reject;
+            //
+            DbHelperCmdObject obj = new DbHelperCmdObject(strSql.ToString(), parameters);
+            return obj;
         }
 
         private static DbHelperCmdObject PrePareOrdZMain(OrdZMain model)

@@ -15,8 +15,8 @@ namespace Jinsftpweb
     {
         void Application_Start(object sender, EventArgs e)
         {
-            //this.t3_Elapsed(null, null);
-            //return;
+            this.t4_Elapsed(null, null);
+            return;
             //定时器
             var t1 = this.CreateTimer(600000);
             t1.Elapsed += t1_Elapsed;
@@ -24,6 +24,8 @@ namespace Jinsftpweb
             t2.Elapsed += t2_Elapsed;
             var t3 = this.CreateTimer(900000);
             t3.Elapsed += t3_Elapsed;
+            var t4 = this.CreateTimer(150000);
+            t4.Elapsed += t4_Elapsed;
         }
         private System.Timers.Timer CreateTimer(double intervel)
         {
@@ -31,6 +33,19 @@ namespace Jinsftpweb
             myTimer1.Enabled = true;
             myTimer1.AutoReset = true;
             return myTimer1;
+        }
+
+        void t4_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            try
+            {
+                RunConvertXMLFiles();
+            }
+            catch (Exception ex)
+            {
+                Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + "[Convert]" + ex.Message + "<br />";
+                Jinsdb.AddLog(ex.Message);
+            }
         }
 
         void t3_Elapsed(object sender, ElapsedEventArgs e)
@@ -72,6 +87,13 @@ namespace Jinsftpweb
                 Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + "[Getting]" + ex.Message + "<br />";
                 Jinsdb.AddLog(ex.Message);
             }
+        }
+
+        private void RunConvertXMLFiles()
+        {
+            Jins jins = new Jins();
+            var count = jins.ConvertXMLFile();
+            Default.html += DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + " [" + count.ToString() + "] xmlfiles convert to server.<br />";
         }
 
         private void RunGetXMLFiles()
