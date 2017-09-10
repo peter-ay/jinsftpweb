@@ -25,6 +25,7 @@ namespace Jinsftpweb
         private string localFolder_confirm = HttpRuntime.AppDomainAppPath + @"xml\confirmation";
         private string localFolder_shipping = HttpRuntime.AppDomainAppPath + @"xml\shipping";
 
+        private string localCopyFolder = "";
         public Jins()
         {
             using (XmlReader _XReader = XmlReader.Create(HttpRuntime.AppDomainAppPath + @"ftp.xml"))
@@ -33,10 +34,15 @@ namespace Jinsftpweb
                 this.ftpServerIP = _XElement.Element("ftpServerIP").Attribute("value").Value;
                 this.ftpUserID = _XElement.Element("ftpUserID").Attribute("value").Value;
                 this.ftpPassword = _XElement.Element("ftpPassword").Attribute("value").Value;
+                localCopyFolder = _XElement.Element("copyForder").Attribute("value").Value;
             }
             this.ftpServerFolder_order = "order";
             this.ftpServerFolder_confirmation = "confirmation";
             this.ftpServerFolder_shipping = "shipping";
+
+            var path = HttpRuntime.AppDomainAppPath;
+            var dir = Directory.GetParent(path);
+            localCopyFolder = dir.Parent.FullName + localCopyFolder;
         }
 
         public int GetXMLFiles()
@@ -53,6 +59,11 @@ namespace Jinsftpweb
                 JinsPub.OrdID = fileName.Substring(0, fileName.LastIndexOf("."));
                 ftp.DownloadFile(this.ftpServerIP, this.ftpServerFolder_order, this.ftpUserID, this.ftpPassword, fileName, localFolder_order, fileName);
                 File.Copy(Path.Combine(localFolder_order, fileName), Path.Combine(localFolder_order + @"\backup", fileName), true);
+                try
+                {
+                    File.Copy(Path.Combine(localFolder_order, fileName), Path.Combine(localCopyFolder, fileName), true);
+                }
+                catch { }
                 //var fullPath = localFolder_order + @"\" + fileName;
                 //var model = Jinsxml.ConvertXMLtoOrdModel(fullPath);
                 //Jinsdb.AddOrd(model);
