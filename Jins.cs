@@ -150,14 +150,23 @@ namespace Jinsftpweb
                             modelErr.SubConet.F_Read = true;
                             modelErr.SubConet.F_Reject = true;
                             modelErr.SubZ.Remark = "鏡片資料缺失";
+                            break;
+
+                        default:
+                            break;
+                    }
+                    //
+                    Jinsdb.AddOrdErr(modelErr);
+                    //
+                    switch (ex.Message)
+                    {
+                        case "RX001":
                             fi.Delete();
                             break;
 
                         default:
                             break;
                     }
-
-                    Jinsdb.AddOrdErr(modelErr);
                 }
                 count++;
             }
