@@ -145,10 +145,11 @@ namespace Jinsftpweb
                     };
                     switch (ex.Message)
                     {
-                        case "Lens_Type required":
+                        case "RX001":
                             modelErr.SubConet.BCode2 = "已拒絕[自動標記]";
                             modelErr.SubConet.F_Read = true;
                             modelErr.SubConet.F_Reject = true;
+                            modelErr.SubZ.Remark = "鏡片資料缺失";
                             fi.Delete();
                             break;
 
