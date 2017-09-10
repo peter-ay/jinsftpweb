@@ -132,6 +132,19 @@ namespace Jinsftpweb
                         F_Shipping = 0,
                         F_Err_Convert = true
                     };
+                    switch (ex.Message)
+                    {
+                        case "Lens_Type required":
+                            modelErr.SubConet.BCode2 = "已拒絕[自動標記]";
+                            modelErr.SubConet.F_Read = true;
+                            modelErr.SubConet.F_Reject = true;
+                            fi.Delete();
+                            break;
+
+                        default:
+                            break;
+                    }
+
                     Jinsdb.AddOrdErr(modelErr);
                 }
                 count++;
