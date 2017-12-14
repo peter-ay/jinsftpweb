@@ -258,6 +258,67 @@ namespace Jinsftpweb
 
                 modelZMain.QuantityL = model.SubRX.Oculus_Sinister_Quantity;
                 modelZMain.QuantityR = model.SubRX.Oculus_Dexter_Quantity;
+
+                //+cyl
+                // 1、CYL1 > 0，AX1 大于 90 时
+                //SPH2=SPH1 +CYL1
+                //CYL2=-CYL1
+                //AX2=AX1-90
+                //2、CYL1> 0，AX1 小于等于 90 时
+                //SPH2=SPH1+CYL1
+                //CYL2=-CYL1
+                //AX2=AX1+90
+
+                int axis = 0;
+                int sphC = 0;
+                int cylC = 0;
+                if (modelZMain.CYLR > 0)
+                {
+                    try
+                    {
+                        axis = Convert.ToInt32(modelZMain.AxisR);
+                    }
+                    catch (Exception) { axis = 0; }
+                    if (axis > 90)
+                    {
+                        sphC = modelZMain.SPHR + modelZMain.CYLR;
+                        cylC = (-1) * modelZMain.CYLR;
+                        axis = axis - 90;
+                    }
+                    else
+                    {
+                        sphC = modelZMain.SPHR + modelZMain.CYLR;
+                        cylC = (-1) * modelZMain.CYLR;
+                        axis = axis + 90;
+                    }
+                    modelZMain.SPHR = sphC;
+                    modelZMain.CYLR = cylC;
+                    modelZMain.AxisR = axis.ToString();
+                }
+                if (modelZMain.CYLL > 0)
+                {
+                    try
+                    {
+                        axis = Convert.ToInt32(modelZMain.AxisL);
+                    }
+                    catch (Exception) { axis = 0; }
+                    if (axis > 90)
+                    {
+                        sphC = modelZMain.SPHL + modelZMain.CYLL;
+                        cylC = (-1) * modelZMain.CYLL;
+                        axis = axis - 90;
+                    }
+                    else
+                    {
+                        sphC = modelZMain.SPHL + modelZMain.CYLL;
+                        cylC = (-1) * modelZMain.CYLL;
+                        axis = axis + 90;
+                    }
+                    modelZMain.SPHL = sphC;
+                    modelZMain.CYLL = cylC;
+                    modelZMain.AxisL = axis.ToString();
+                }
+
             }
         }
 
