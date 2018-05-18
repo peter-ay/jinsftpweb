@@ -368,9 +368,9 @@ namespace Jinsftpweb
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into Jins_Ord_RX(");
-            strSql.Append("ID,SpecialRight1,SpecialRight2,SpecialRight3,SpecialRight4,SpecialLeft1,SpecialLeft2,SpecialLeft3,SpecialLeft4,Lens_Type,Tint_Type,Tint,Polarized,Mirrored,Oculus_Dexter_Sphere,Oculus_Sinister_Sphere,Oculus_Dexter_Cylinder,Oculus_Sinister_Cylinder,Oculus_Dexter_Axis,Oculus_Sinister_Axis,Oculus_Dexter_Add,Oculus_Sinister_Add,Oculus_Dexter_Diameter,Oculus_Sinister_Diameter,Oculus_Dexter_Quantity,Oculus_Sinister_Quantity)");
+            strSql.Append("ID,SpecialRight1,SpecialRight2,SpecialRight3,SpecialRight4,SpecialLeft1,SpecialLeft2,SpecialLeft3,SpecialLeft4,Lens_Type,Tint_Type,Tint,Polarized,Mirrored,Oculus_Dexter_Sphere,Oculus_Sinister_Sphere,Oculus_Dexter_Cylinder,Oculus_Sinister_Cylinder,Oculus_Dexter_Axis,Oculus_Sinister_Axis,Oculus_Dexter_Add,Oculus_Sinister_Add,Oculus_Dexter_Diameter,Oculus_Sinister_Diameter,Oculus_Dexter_Quantity,Oculus_Sinister_Quantity,Frame_Code,Polishing,Oculus_Eye_Point,Oculus_Dexter_Pupillary_Distance,Oculus_Sinister_Pupillary_Distance)");
             strSql.Append(" values (");
-            strSql.Append("@ID,@SpecialRight1,@SpecialRight2,@SpecialRight3,@SpecialRight4,@SpecialLeft1,@SpecialLeft2,@SpecialLeft3,@SpecialLeft4,@Lens_Type,@Tint_Type,@Tint,@Polarized,@Mirrored,@Oculus_Dexter_Sphere,@Oculus_Sinister_Sphere,@Oculus_Dexter_Cylinder,@Oculus_Sinister_Cylinder,@Oculus_Dexter_Axis,@Oculus_Sinister_Axis,@Oculus_Dexter_Add,@Oculus_Sinister_Add,@Oculus_Dexter_Diameter,@Oculus_Sinister_Diameter,@Oculus_Dexter_Quantity,@Oculus_Sinister_Quantity)");
+            strSql.Append("@ID,@SpecialRight1,@SpecialRight2,@SpecialRight3,@SpecialRight4,@SpecialLeft1,@SpecialLeft2,@SpecialLeft3,@SpecialLeft4,@Lens_Type,@Tint_Type,@Tint,@Polarized,@Mirrored,@Oculus_Dexter_Sphere,@Oculus_Sinister_Sphere,@Oculus_Dexter_Cylinder,@Oculus_Sinister_Cylinder,@Oculus_Dexter_Axis,@Oculus_Sinister_Axis,@Oculus_Dexter_Add,@Oculus_Sinister_Add,@Oculus_Dexter_Diameter,@Oculus_Sinister_Diameter,@Oculus_Dexter_Quantity,@Oculus_Sinister_Quantity,@Frame_Code,@Polishing,@Oculus_Eye_Point,@Oculus_Dexter_Pupillary_Distance,@Oculus_Sinister_Pupillary_Distance)");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.VarChar,25),
 					new SqlParameter("@SpecialRight1", SqlDbType.VarChar,20),
@@ -397,7 +397,12 @@ namespace Jinsftpweb
 					new SqlParameter("@Oculus_Dexter_Diameter", SqlDbType.Int,4),
 					new SqlParameter("@Oculus_Sinister_Diameter", SqlDbType.Int,4),
 					new SqlParameter("@Oculus_Dexter_Quantity", SqlDbType.Int,4),
-					new SqlParameter("@Oculus_Sinister_Quantity", SqlDbType.Int,4)};
+					new SqlParameter("@Oculus_Sinister_Quantity", SqlDbType.Int,4),
+					new SqlParameter("@Frame_Code", SqlDbType.NVarChar,30),
+					new SqlParameter("@Polishing", SqlDbType.NVarChar,30),
+					new SqlParameter("@Oculus_Eye_Point", SqlDbType.NVarChar,30),
+					new SqlParameter("@Oculus_Dexter_Pupillary_Distance", SqlDbType.NVarChar,30),
+					new SqlParameter("@Oculus_Sinister_Pupillary_Distance", SqlDbType.NVarChar,30)};
             parameters[0].Value = model.ID;
             parameters[1].Value = model.SpecialRight1;
             parameters[2].Value = model.SpecialRight2;
@@ -424,6 +429,11 @@ namespace Jinsftpweb
             parameters[23].Value = model.Oculus_Sinister_Diameter;
             parameters[24].Value = model.Oculus_Dexter_Quantity;
             parameters[25].Value = model.Oculus_Sinister_Quantity;
+            parameters[26].Value = model.Frame_Code;
+            parameters[27].Value = model.Polishing;
+            parameters[28].Value = model.Oculus_Eye_Point;
+            parameters[29].Value = model.Oculus_Dexter_Pupillary_Distance;
+            parameters[30].Value = model.Oculus_Sinister_Pupillary_Distance;
             //
             DbHelperCmdObject obj = new DbHelperCmdObject(strSql.ToString(), parameters);
             return obj;
@@ -433,9 +443,9 @@ namespace Jinsftpweb
         {
             StringBuilder strSql = new StringBuilder();
             strSql.Append("insert into Jins_Ord_Main(");
-            strSql.Append("ID,OrdID,OrdHdID,OrdType,Address1,Postal,Tel,Memo,Created,SalesOfficeCode,SalesOfficeName)");
+            strSql.Append("ID,OrdID,OrdHdID,OrdType,Address1,Postal,Tel,Memo,Created,SalesOfficeCode,SalesOfficeName,Procurement_Type)");
             strSql.Append(" values (");
-            strSql.Append("@ID,@OrdID,@OrdHdID,@OrdType,@Address1,@Postal,@Tel,@Memo,@Created,@SalesOfficeCode,@SalesOfficeName)");
+            strSql.Append("@ID,@OrdID,@OrdHdID,@OrdType,@Address1,@Postal,@Tel,@Memo,@Created,@SalesOfficeCode,@SalesOfficeName,@Procurement_Type)");
             SqlParameter[] parameters = {
 					new SqlParameter("@ID", SqlDbType.VarChar,25),
 					new SqlParameter("@OrdID", SqlDbType.VarChar,50),
@@ -447,7 +457,8 @@ namespace Jinsftpweb
 					new SqlParameter("@Memo", SqlDbType.VarChar,200),
 					new SqlParameter("@Created", SqlDbType.DateTime),
 					new SqlParameter("@SalesOfficeCode", SqlDbType.VarChar,10),
-					new SqlParameter("@SalesOfficeName", SqlDbType.VarChar,100)};
+					new SqlParameter("@SalesOfficeName", SqlDbType.VarChar,100),
+					new SqlParameter("@Procurement_Type", SqlDbType.NVarChar,30)};
             parameters[0].Value = model.ID;
             parameters[1].Value = model.OrdID;
             parameters[2].Value = model.OrdHdID;
@@ -459,6 +470,7 @@ namespace Jinsftpweb
             parameters[8].Value = model.Created;
             parameters[9].Value = model.SalesOfficeCode;
             parameters[10].Value = model.SalesOfficeName;
+            parameters[11].Value = model.Procurement_Type;
             //
             DbHelperCmdObject obj = new DbHelperCmdObject(strSql.ToString(), parameters);
             return obj;

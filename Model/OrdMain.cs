@@ -64,11 +64,14 @@ namespace Jinsftpweb.Model
             set;
         }
 
-        public OrdRX SubRX
+        //New define 180518
+        public string Procurement_Type
         {
             get;
             set;
         }
+
+        public OrdRX SubRX { get; set; }
 
         public List<OrdST> SubST { get; set; }
 

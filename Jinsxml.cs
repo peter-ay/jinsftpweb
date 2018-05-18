@@ -32,6 +32,8 @@ namespace Jinsftpweb
                     catch { model.Created = DateTime.Now; }
                     model.SalesOfficeCode = _XElement.Element("salesOfficeCode").Value;
                     model.SalesOfficeName = _XElement.Element("salesOfficeName").Value;
+                    try { model.Procurement_Type = _XElement.Element("procurement_type").Value; }
+                    catch { model.Procurement_Type = ""; }
                     //
                     switch (model.OrdType)
                     {
@@ -69,6 +71,19 @@ namespace Jinsftpweb
                             //
                             modelrx.Oculus_Dexter_Quantity = _detail.Element("oculus_dexter_quantity").Value.GetIntFromStr();
                             modelrx.Oculus_Sinister_Quantity = _detail.Element("oculus_sinister_quantity").Value.GetIntFromStr();
+
+                            //new column
+                            try { modelrx.Frame_Code = _detail.Element("frame_code").Value; }
+                            catch { modelrx.Frame_Code = ""; }
+                            try { modelrx.Polishing = _detail.Element("polishing").Value; }
+                            catch { modelrx.Polishing = ""; }
+                            try { modelrx.Oculus_Eye_Point = _detail.Element("oculus_eye_point").Value; }
+                            catch { modelrx.Oculus_Eye_Point = ""; }
+                            try { modelrx.Oculus_Dexter_Pupillary_Distance = _detail.Element("oculus_dexter_pupillary_distance").Value; }
+                            catch { modelrx.Oculus_Dexter_Pupillary_Distance = ""; }
+                            try { modelrx.Oculus_Sinister_Pupillary_Distance = _detail.Element("oculus_sinister_pupillary_distance").Value; }
+                            catch { modelrx.Oculus_Sinister_Pupillary_Distance = ""; }
+
                             break;
 
                         default:
@@ -318,8 +333,19 @@ namespace Jinsftpweb
                     modelZMain.CYLL = cylC;
                     modelZMain.AxisL = axis.ToString();
                 }
-
             }
+
+            if (model.OrdType.ToLower() == "rx" && model.Procurement_Type == "subcontract")
+            {
+                modelZMain.Flag_CX = true;
+                modelZMain.JingJia = model.SubRX.Frame_Code;
+                if (model.SubRX.Polishing == "true")
+                    modelZMain.PaoGuang = "EXE";
+                modelZMain.ExtraProcess = model.SubRX.Oculus_Eye_Point;
+                modelZMain.PD = model.SubRX.Oculus_Dexter_Pupillary_Distance + "/" + model.SubRX.Oculus_Sinister_Pupillary_Distance;
+            }
+
+
         }
 
         private static void InitOrdZ(OrdMain model)

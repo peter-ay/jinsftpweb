@@ -137,5 +137,13 @@ namespace Jinsftpweb.Model
             get;
             set;
         }
+
+        //new columms 180518
+        public string Frame_Code { get; set; }
+        public string Polishing { get; set; }
+        public string Oculus_Eye_Point { get; set; }
+        public string Oculus_Dexter_Pupillary_Distance { get; set; }
+        public string Oculus_Sinister_Pupillary_Distance { get; set; }
+
     }
 }
