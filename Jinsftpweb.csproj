@@ -82,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ftp.xml" />
-    <None Include="Properties\PublishProfiles\jinsftpweb.pubxml" />
+    <None Include="Properties\PublishProfiles\jinsftpweb_test180523.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

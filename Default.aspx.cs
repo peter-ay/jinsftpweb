@@ -9,7 +9,7 @@ namespace Jinsftpweb
 {
     public partial class Default : System.Web.UI.Page
     {
-        public static String html = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + " HKO Jins FTP System Runing..." + "<br />";
+        public static String html = DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString() + " HKO Jins FTP test180523 System Runing..." + "<br />";
         protected void Page_Load(object sender, EventArgs e)
         {
             GetMsg();
