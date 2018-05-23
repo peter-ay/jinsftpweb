@@ -112,6 +112,9 @@ namespace Jinsftpweb
                     cmdObjec.Add(obj);
                 }
             }
+            model.SubExtend.id = model.ID;
+            obj = PrePareOrdExtend(model.SubExtend);
+            cmdObjec.Add(obj);
             model.SubZ.ID = model.ID;
             obj = PrePareOrdZ(model.SubZ);
             cmdObjec.Add(obj);
@@ -122,6 +125,23 @@ namespace Jinsftpweb
             obj = PrePareOrdSaveVerify(model.ID);
             cmdObjec.Add(obj);
             dbHelper.ExecuteCmdObjectTran(cmdObjec);
+        }
+
+        private static DbHelperCmdObject PrePareOrdExtend(OrdExtend model)
+        {
+            StringBuilder strSql = new StringBuilder();
+            strSql.Append("insert into Jins_Ord_Extend(");
+            strSql.Append("id,f_test)");
+            strSql.Append(" values (");
+            strSql.Append("@id,@f_test)");
+            SqlParameter[] parameters = {
+					new SqlParameter("@id", SqlDbType.VarChar,25),
+                    new SqlParameter("@f_test", SqlDbType.Bit,1)};
+            parameters[0].Value = model.id;
+            parameters[1].Value = model.f_test;
+            //
+            DbHelperCmdObject obj = new DbHelperCmdObject(strSql.ToString(), parameters);
+            return obj;
         }
 
         private static DbHelperCmdObject PrePareOrdConet(OrdConet model)
@@ -486,7 +506,7 @@ namespace Jinsftpweb
             DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
             var strSql = @"select 
                             A1.ID,A1.OrdType,A1.OrdHdID,A1.OrdID,A1.F_Reject
-                            from V_Jins_UnConfirm A1";
+                            from V_Jins_UnConfirm_for_test A1";
             rs = db.Query(strSql);
             return rs;
         }
@@ -536,7 +556,7 @@ namespace Jinsftpweb
             DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
             var strSql = @"select 
                             A1.ID,A1.OrdType,A1.OrdHdID,A1.OrdID,A1.ECode 
-                            from V_Jins_UnShippingRX A1";
+                            from V_Jins_UnShippingRX_for_test A1";
             rs = db.Query(strSql);
             return rs;
         }
@@ -547,7 +567,7 @@ namespace Jinsftpweb
             DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
             var strSql = @"select 
                             A1.ID,A1.OrdType,A1.OrdHdID,A1.OrdID,A1.ECode  
-                            from V_Jins_UnShippingST A1";
+                            from V_Jins_UnShippingST_for_test A1";
             rs = db.Query(strSql);
             return rs;
         }
@@ -575,7 +595,7 @@ namespace Jinsftpweb
         #region Get Import shipping
         public static void GetImportShippingST()
         {
-            var strSql = @"SP_JinsOrd_ImportUnShippingST";
+            var strSql = @"SP_JinsOrd_ImportUnShippingST_for_test";
             DbHelperSQL db = new DbHelperSQL(JinsPub.DbName);
             db.RunProcedure(strSql, new IDataParameter[] { });
         }

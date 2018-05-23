@@ -71,6 +71,8 @@ namespace Jinsftpweb.Model
             set;
         }
 
+        public OrdExtend SubExtend { get; set; }
+
         public OrdRX SubRX { get; set; }
 
         public List<OrdST> SubST { get; set; }

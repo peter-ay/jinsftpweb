@@ -34,6 +34,7 @@ namespace Jinsftpweb
                     model.SalesOfficeName = _XElement.Element("salesOfficeName").Value;
                     try { model.Procurement_Type = _XElement.Element("procurement_type").Value; }
                     catch { model.Procurement_Type = ""; }
+                    model.SubExtend.f_test = true;
                     //
                     switch (model.OrdType)
                     {

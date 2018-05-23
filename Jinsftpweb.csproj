@@ -109,6 +109,7 @@
     <Compile Include="Model\OrdMain.cs" />
     <Compile Include="Model\OrdRX.cs" />
     <Compile Include="Model\OrdConet.cs" />
+    <Compile Include="Model\OrdExtend.cs" />
     <Compile Include="Model\OrdZMain.cs" />
     <Compile Include="Model\OrdZ.cs" />
     <Compile Include="Model\OrdST.cs" />
