@@ -116,6 +116,7 @@ namespace Jinsftpweb
                         OrdID = model.OrdID,
                         Tel = "",
                         Memo = "Err",
+                        Procurement_Type = "",
                     };
                     modelErr.SubZ = new OrdZ()
                     {
