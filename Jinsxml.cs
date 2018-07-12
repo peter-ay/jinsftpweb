@@ -341,7 +341,7 @@ namespace Jinsftpweb
                 modelZMain.JingJia = model.SubRX.Frame_Code;
                 if (model.SubRX.Polishing == "true")
                     modelZMain.PaoGuang = "EXE";
-                modelZMain.ExtraProcess = model.SubRX.Oculus_Eye_Point;
+                //modelZMain.ExtraProcess = model.SubRX.Oculus_Eye_Point;
                 modelZMain.PD = model.SubRX.Oculus_Dexter_Pupillary_Distance + "/" + model.SubRX.Oculus_Sinister_Pupillary_Distance;
             }
 
