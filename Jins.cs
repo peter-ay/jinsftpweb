@@ -293,7 +293,10 @@ namespace Jinsftpweb
                 fileName = fileList[0].Name;
                 JinsPub.OrdID = fileName;
                 fullFileName = fileList[0].FullName;
-                ftp.UploadFile(ftpServerIP, toFTPServerFolder, fullFileName, ftpUserID, ftpPassword);
+                if (fullFileName.Length > 10)
+                {
+                    ftp.UploadFile(ftpServerIP, toFTPServerFolder, fullFileName, ftpUserID, ftpPassword);
+                }
                 File.Copy(Path.Combine(fromLocalFolder, fileName), Path.Combine(fromLocalFolder + @"\backup", fileName), true);
                 fileList[0].Delete();
                 count++;
