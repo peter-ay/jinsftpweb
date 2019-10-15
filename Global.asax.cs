@@ -18,8 +18,8 @@ namespace Jinsftpweb
             //this.t4_Elapsed(null, null);
             //return;
             //定时器
-            var t1 = this.CreateTimer(600000);
-            t1.Elapsed += t1_Elapsed;
+            //var t1 = this.CreateTimer(600000);
+            //t1.Elapsed += t1_Elapsed;
             var t2 = this.CreateTimer(700000);
             t2.Elapsed += t2_Elapsed;
             var t3 = this.CreateTimer(900000);
