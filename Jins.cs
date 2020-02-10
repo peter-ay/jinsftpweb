@@ -221,6 +221,8 @@ namespace Jinsftpweb
             foreach (DataRow item in rs.Tables[0].Rows)
             {
                 OrdMain model = this.PrepareShippingModel(item);
+                if (string.IsNullOrEmpty(model.OrdID))
+                    continue;
                 var xmldoc = Jinsxml.CreateShippingXMLFile(model);
                 xmldoc.Save(localFolder_shipping + @"\" + model.OrdID + @".xml");
                 Jinsdb.UpdateShippingFlatRX(model.OrdID);
@@ -256,6 +258,8 @@ namespace Jinsftpweb
             foreach (DataRow item in rs.Tables[0].Rows)
             {
                 OrdMain model = this.PrepareShippingModel(item);
+                if (string.IsNullOrEmpty(model.OrdID))
+                    continue;
                 model.SubST = new List<OrdST>();
                 var rsdetail = Jinsdb.GetOrdShipDetail(model.ID);
                 foreach (DataRow item2 in rsdetail.Tables[0].Rows)
