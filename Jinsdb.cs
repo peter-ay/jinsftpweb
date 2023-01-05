@@ -122,8 +122,8 @@ namespace Jinsftpweb
             obj = PrePareOrdZMain(model.SubZMain);
             cmdObjec.Add(obj);
             //
-            obj = PrePareOrdSaveVerify(model.ID);
-            cmdObjec.Add(obj);
+            //obj = PrePareOrdSaveVerify(model.ID);
+            //cmdObjec.Add(obj);
             dbHelper.ExecuteCmdObjectTran(cmdObjec);
         }
 
